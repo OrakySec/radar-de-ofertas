@@ -24,12 +24,12 @@ services:
         - "traefik.enable=true"
         - "traefik.docker.network=YkaroNET"
         # Router HTTPS (principal)
-        - "traefik.http.routers.radarofertas.rule=Host(`ofertas.SEUDOMINIO.com`)"
+        - "traefik.http.routers.radarofertas.rule=Host(`rdo.ykaromarques.com`)"
         - "traefik.http.routers.radarofertas.entrypoints=websecure"
         - "traefik.http.routers.radarofertas.tls.certresolver=letsencryptresolver"
         - "traefik.http.services.radarofertas.loadbalancer.server.port=80"
         # Router HTTP → redireciona para HTTPS
-        - "traefik.http.routers.radarofertas-http.rule=Host(`ofertas.SEUDOMINIO.com`)"
+        - "traefik.http.routers.radarofertas-http.rule=Host(`rdo.ykaromarques.com`)"
         - "traefik.http.routers.radarofertas-http.entrypoints=web"
         - "traefik.http.routers.radarofertas-http.middlewares=radarofertas-https-redirect"
         - "traefik.http.middlewares.radarofertas-https-redirect.redirectscheme.scheme=https"
