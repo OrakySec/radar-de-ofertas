@@ -11,6 +11,15 @@ permissions:
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - context: .
+            dockerfile: ./Dockerfile
+            image-suffix: ""
+          - context: ./tracking-api
+            dockerfile: ./tracking-api/Dockerfile
+            image-suffix: "-tracking"
     steps:
       - uses: actions/checkout@v4
 
@@ -25,11 +34,12 @@ jobs:
       # repositório (ex.: OrakySec/radar-de-ofertas) pode ter maiúsculas.
       - name: Normalize image name to lowercase
         id: image
-        run: echo "name=ghcr.io/${GITHUB_REPOSITORY,,}" >> "$GITHUB_OUTPUT"
+        run: echo "name=ghcr.io/${GITHUB_REPOSITORY,,}${{ matrix.image-suffix }}" >> "$GITHUB_OUTPUT"
 
       - name: Build and push image
         uses: docker/build-push-action@v6
         with:
-          context: .
+          context: ${{ matrix.context }}
+          file: ${{ matrix.dockerfile }}
           push: true
           tags: ${{ steps.image.outputs.name }}:latest

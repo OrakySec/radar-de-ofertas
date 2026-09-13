@@ -12,6 +12,10 @@ services:
       LINK_INFORMATICA:   "${LINK_INFORMATICA}"
       LINK_GAMES:         "${LINK_GAMES}"
       LINK_IMPRESSAO3D:   "${LINK_IMPRESSAO3D}"
+      # Tracking (Meta Pixel / Google Ads) — deixe em branco pra desligar.
+      META_PIXEL_ID:      "${META_PIXEL_ID}"
+      GOOGLE_ADS_ID:      "${GOOGLE_ADS_ID}"
+      GOOGLE_ADS_LABEL:   "${GOOGLE_ADS_LABEL}"
     networks:
       - YkaroNET
     deploy:
@@ -34,6 +38,34 @@ services:
         - "traefik.http.routers.radarofertas-http.middlewares=radarofertas-https-redirect"
         - "traefik.http.middlewares.radarofertas-https-redirect.redirectscheme.scheme=https"
         - "traefik.http.middlewares.radarofertas-https-redirect.redirectscheme.permanent=true"
+
+  tracking-api:
+    image: ghcr.io/orakysec/radar-de-ofertas-tracking:latest
+    container_name: radarofertas_tracking_api
+    environment:
+      # Gere um token NOVO em Meta Events Manager > Conversions API —
+      # nunca reutilize o token de outro pixel/projeto.
+      META_PIXEL_ID:    "${META_PIXEL_ID}"
+      META_CAPI_TOKEN:  "${META_CAPI_TOKEN}"
+    networks:
+      - YkaroNET
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+      labels:
+        - "traefik.enable=true"
+        - "traefik.docker.network=YkaroNET"
+        # Mesmo domínio do site, só que só responde em /api/* — a
+        # prioridade alta garante que esse router "ganha" do router
+        # genérico (Host only) do serviço "app" pra essas rotas.
+        - "traefik.http.routers.radarofertas-api.rule=Host(`rdo.ykaromarques.com`) && PathPrefix(`/api`)"
+        - "traefik.http.routers.radarofertas-api.entrypoints=websecure"
+        - "traefik.http.routers.radarofertas-api.tls.certresolver=letsencryptresolver"
+        - "traefik.http.routers.radarofertas-api.priority=100"
+        - "traefik.http.services.radarofertas-api.loadbalancer.server.port=3000"
 
 networks:
   YkaroNET:

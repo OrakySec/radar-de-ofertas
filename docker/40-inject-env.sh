@@ -13,9 +13,16 @@ set -eu
 : "${LINK_GAMES:=#}"
 : "${LINK_IMPRESSAO3D:=#}"
 
-export LINK_CASA LINK_INFORMATICA LINK_GAMES LINK_IMPRESSAO3D
+# Tracking: fica vazio ("") se a env var não for setada — o site trata
+# string vazia como "tracking desligado" (ver index.html / script.js).
+: "${META_PIXEL_ID:=}"
+: "${GOOGLE_ADS_ID:=}"
+: "${GOOGLE_ADS_LABEL:=}"
 
-envsubst '${LINK_CASA} ${LINK_INFORMATICA} ${LINK_GAMES} ${LINK_IMPRESSAO3D}' \
+export LINK_CASA LINK_INFORMATICA LINK_GAMES LINK_IMPRESSAO3D
+export META_PIXEL_ID GOOGLE_ADS_ID GOOGLE_ADS_LABEL
+
+envsubst '${LINK_CASA} ${LINK_INFORMATICA} ${LINK_GAMES} ${LINK_IMPRESSAO3D} ${META_PIXEL_ID} ${GOOGLE_ADS_ID} ${GOOGLE_ADS_LABEL}' \
   < /usr/share/nginx/html/config.template.js \
   > /usr/share/nginx/html/config.js
 

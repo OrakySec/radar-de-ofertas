@@ -5,10 +5,58 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Radar de Ofertas — Impressão 3D, Informática, Casa e Games</title>
 <meta name="description" content="Ofertas selecionadas todo dia, direto no seu grupo: impressão 3D, peças de PC, casa e eletrodomésticos, e jogos de PS5/Xbox.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" href="favicon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="favicon-16x16.png" sizes="16x16" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css?v=4">
+
+<!-- Gerado a partir de config.template.js no start do container (Docker),
+     com IDs de tracking e links dos grupos vindos de variável de ambiente.
+     Em dev local (sem Docker) este arquivo não existe — tracking fica
+     desligado e os links seguem como placeholder, sem quebrar a página. -->
+<script src="config.js" onerror="window.RADAR_LINKS = window.RADAR_LINKS || {}; window.RADAR_TRACKING = window.RADAR_TRACKING || {};"></script>
+
+<!-- Meta Pixel Code -->
+<script>
+(function () {
+  var pixelId = window.RADAR_TRACKING && window.RADAR_TRACKING.metaPixelId;
+  if (!pixelId || pixelId.indexOf('${') === 0) return; // sem ID configurado (env var vazia) -> não carrega
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', pixelId);
+  fbq('track', 'PageView');
+})();
+</script>
+<!-- End Meta Pixel Code -->
+
+<!-- Google Ads (gtag.js) -->
+<script>
+(function () {
+  var t = window.RADAR_TRACKING || {};
+  var adsId = t.googleAdsId;
+  if (!adsId || adsId.indexOf('${') === 0) return; // sem ID configurado -> não carrega
+  var s = document.createElement('script');
+  s.async = true;
+  s.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(adsId);
+  document.head.appendChild(s);
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function () { window.dataLayer.push(arguments); };
+  gtag('js', new Date());
+  gtag('config', adsId);
+})();
+</script>
+<!-- End Google Ads -->
 </head>
 <body>
 

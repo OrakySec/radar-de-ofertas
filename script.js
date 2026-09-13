@@ -27,9 +27,76 @@
       a.href = url;
       a.target = '_blank';
       a.rel = 'noopener noreferrer';
+      a.addEventListener('click', () => trackGroupClick(a.href, key));
     });
   });
 })();
+
+// =====================================================================
+// Tracking: Meta Pixel (browser + CAPI via tracking-api) + Google Ads.
+// Fica tudo "desligado" sozinho se as env vars de tracking não forem
+// configuradas (ver config.template.js) — nunca quebra a página.
+// =====================================================================
+function getCookie(name) {
+  const match = document.cookie.match(new RegExp(`(?:^|; )${name}=([^;]*)`));
+  return match ? decodeURIComponent(match[1]) : null;
+}
+
+// _fbc só existe depois que o fbevents.js processa o fbclid da URL —
+// no primeiro pageview vindo de um clique de anúncio ele pode não existir
+// ainda, então construímos manualmente a partir do fbclid como fallback.
+function getFbc() {
+  const existing = getCookie('_fbc');
+  if (existing) return existing;
+  const fbclid = new URLSearchParams(window.location.search).get('fbclid');
+  if (!fbclid) return null;
+  return `fb.1.${Date.now()}.${fbclid}`;
+}
+
+function trackEvent(eventName, params) {
+  const eventId = Math.random().toString(36).substring(2, 15) + Date.now().toString(36);
+
+  // 1. Pixel (navegador)
+  if (typeof fbq === 'function') {
+    fbq('trackCustom', eventName, params || {}, { eventID: eventId });
+  }
+
+  // 2. Google Ads — dispara a mesma conversão configurada, se houver.
+  const tracking = window.RADAR_TRACKING || {};
+  const adsId = tracking.googleAdsId;
+  const adsLabel = tracking.googleAdsLabel;
+  if (typeof gtag === 'function' && adsId && adsLabel && adsId.indexOf('${') !== 0 && adsLabel.indexOf('${') !== 0) {
+    gtag('event', 'conversion', { send_to: `${adsId}/${adsLabel}`, ...(params || {}) });
+  }
+
+  // 3. CAPI (servidor) — vai pro tracking-api, que repassa pro Graph API.
+  //    Se o endpoint não existir/estiver fora do ar, falha em silêncio.
+  fetch('/api/tracking/meta-event', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      eventName,
+      eventId,
+      sourceUrl: window.location.href,
+      userAgent: navigator.userAgent,
+      fbc: getFbc(),
+      fbp: getCookie('_fbp'),
+    }),
+  }).catch(() => {});
+}
+
+// Nomes de evento adaptados do /3d: como aqui não tem modal (o CTA já é o
+// próprio link do grupo), cada clique dispara direto o evento genérico de
+// conversão (JoinGroup) + o específico do canal (Telegram/WhatsApp).
+function trackGroupClick(url, category) {
+  trackEvent('JoinGroup', { category });
+
+  if (/t\.me|telegram/i.test(url)) {
+    trackEvent('CliqueTelegram', { category });
+  } else if (/wa\.me|whatsapp/i.test(url)) {
+    trackEvent('CliqueWhatsApp', { category });
+  }
+}
 
 // Radar de Ofertas — comportamento dos carrosséis de ofertas
 document.querySelectorAll('.offers-wrap').forEach((wrap) => {
