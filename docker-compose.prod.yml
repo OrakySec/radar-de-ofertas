@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  app:
+    image: ghcr.io/${GITHUB_REPOSITORY}:latest
+    container_name: radarofertas_app
+    environment:
+      # Links dos grupos (WhatsApp ou Telegram) — configure no Portainer,
+      # em Environment variables da stack. Sem depender de troca de código
+      # nem de novo deploy quando o link mudar.
+      LINK_CASA:          "${LINK_CASA}"
+      LINK_INFORMATICA:   "${LINK_INFORMATICA}"
+      LINK_GAMES:         "${LINK_GAMES}"
+      LINK_IMPRESSAO3D:   "${LINK_IMPRESSAO3D}"
+    networks:
+      - YkaroNET
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+      labels:
+        - "traefik.enable=true"
+        - "traefik.docker.network=YkaroNET"
+        # Router HTTPS (principal)
+        - "traefik.http.routers.radarofertas.rule=Host(`ofertas.SEUDOMINIO.com`)"
+        - "traefik.http.routers.radarofertas.entrypoints=websecure"
+        - "traefik.http.routers.radarofertas.tls.certresolver=letsencryptresolver"
+        - "traefik.http.services.radarofertas.loadbalancer.server.port=80"
+        # Router HTTP → redireciona para HTTPS
+        - "traefik.http.routers.radarofertas-http.rule=Host(`ofertas.SEUDOMINIO.com`)"
+        - "traefik.http.routers.radarofertas-http.entrypoints=web"
+        - "traefik.http.routers.radarofertas-http.middlewares=radarofertas-https-redirect"
+        - "traefik.http.middlewares.radarofertas-https-redirect.redirectscheme.scheme=https"
+        - "traefik.http.middlewares.radarofertas-https-redirect.redirectscheme.permanent=true"
+
+networks:
+  YkaroNET:
+    external: true

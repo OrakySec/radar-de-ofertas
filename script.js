@@ -1,0 +1,185 @@
+// Radar de Ofertas — liga os botões "Entrar no grupo" aos links reais,
+// vindos de config.js (gerado a partir de variáveis de ambiente no
+// container Docker — veja config.template.js e docker/40-inject-env.sh).
+// Se config.js não existir (rodando local sem Docker) ou a env var de
+// uma categoria não estiver setada, o link daquela categoria continua
+// como está no HTML (href="#") — nunca quebra a página.
+(function () {
+  const links = (typeof window.RADAR_LINKS === 'object' && window.RADAR_LINKS) || {};
+
+  // data-category das seções -> chave usada em config.template.js
+  const SECTION_TO_KEY = {
+    casa: 'casa',
+    informatica: 'informatica',
+    games: 'games',
+    'impressao-3d': 'impressao3d',
+  };
+
+  Object.entries(SECTION_TO_KEY).forEach(([sectionId, key]) => {
+    const url = links[key];
+    // placeholder não preenchido (env var vazia) ou template não processado
+    if (!url || url.startsWith('${') || url === '#') return;
+
+    const section = document.getElementById(sectionId);
+    if (!section) return;
+
+    section.querySelectorAll('a.cta-button, a.offer-cta').forEach((a) => {
+      a.href = url;
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer';
+    });
+  });
+})();
+
+// Radar de Ofertas — comportamento dos carrosséis de ofertas
+document.querySelectorAll('.offers-wrap').forEach((wrap) => {
+  const carousel = wrap.querySelector('.carousel');
+  const prevBtn = wrap.querySelector('.carousel-btn.prev');
+  const nextBtn = wrap.querySelector('.carousel-btn.next');
+  if (!carousel || !prevBtn || !nextBtn) return;
+
+  const scrollStep = () => {
+    const card = carousel.querySelector('.offer-card');
+    const gap = 16; // deve casar com o "gap" do .carousel no CSS
+    return card ? card.offsetWidth + gap : 240;
+  };
+
+  prevBtn.addEventListener('click', () => {
+    carousel.scrollBy({ left: -scrollStep() * 2, behavior: 'smooth' });
+  });
+  nextBtn.addEventListener('click', () => {
+    carousel.scrollBy({ left: scrollStep() * 2, behavior: 'smooth' });
+  });
+});
+
+
+// =====================================================================
+// Contador de "vagas" + pop-ups "fulano entrou no grupo agora"
+// Os dois trabalham juntos: cada pop-up de entrada desconta 1 vaga.
+//
+// O contador persiste no localStorage do visitante e reseta sozinho a
+// cada novo dia — assim ele não "zera" ao dar F5, mas também não fica
+// preso no mesmo número pra sempre.
+// =====================================================================
+(function () {
+  const CATEGORIES = [
+    { id: 'casa',         label: 'Casa & Eletrodomésticos', accentVar: '--green'  },
+    { id: 'informatica',  label: 'PC & Informática',        accentVar: '--cyan'   },
+    { id: 'games',        label: 'Games PS5 & Xbox',        accentVar: '--purple' },
+    { id: 'impressao-3d', label: 'Impressão 3D',            accentVar: '--orange' },
+  ];
+
+  const NAMES = [
+    'Lucas M.', 'Ana P.', 'Rafael S.', 'Juliana C.', 'Pedro H.', 'Camila R.',
+    'Bruno T.', 'Fernanda L.', 'Gabriel O.', 'Mariana F.', 'Thiago A.',
+    'Beatriz N.', 'Diego K.', 'Larissa V.', 'Felipe B.', 'Amanda G.',
+    'Rodrigo P.', 'Letícia S.', 'Matheus C.', 'Isabela D.',
+  ];
+
+  const CITIES = [
+    'São Paulo', 'Rio de Janeiro', 'Belo Horizonte', 'Curitiba',
+    'Porto Alegre', 'Salvador', 'Recife', 'Fortaleza', 'Brasília',
+    'Campinas', 'Goiânia', 'Florianópolis',
+  ];
+
+  const STORAGE_KEY = 'radarOfertas.vagas.v1';
+  const VAGAS_MIN_FLOOR = 4;      // nunca mostra menos que isso (senão parece esgotado)
+  const VAGAS_RANGE = [18, 45];   // faixa de sorteio ao resetar o dia
+
+  const todayKey = () => new Date().toISOString().slice(0, 10);
+
+  function loadState() {
+    let raw;
+    try { raw = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null'); }
+    catch (e) { raw = null; }
+
+    if (raw && raw.date === todayKey() && raw.values) return raw;
+
+    // novo dia (ou primeira visita): sorteia vagas frescas por categoria
+    const values = {};
+    CATEGORIES.forEach((c) => {
+      const [min, max] = VAGAS_RANGE;
+      values[c.id] = Math.floor(min + Math.random() * (max - min));
+    });
+    const fresh = { date: todayKey(), values };
+    saveState(fresh);
+    return fresh;
+  }
+
+  function saveState(state) {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+    catch (e) { /* localStorage indisponível — segue só em memória */ }
+  }
+
+  let state = loadState();
+
+  function renderVagas(catId) {
+    const val = state.values[catId];
+    document.querySelectorAll(`.vagas-counter[data-category="${catId}"] .vagas-num`)
+      .forEach((el) => {
+        el.textContent = val;
+        el.classList.remove('pulse');
+        // força reflow pra poder tocar a animação de novo em sequência
+        void el.offsetWidth;
+        el.classList.add('pulse');
+      });
+  }
+
+  function renderAllVagas() {
+    CATEGORIES.forEach((c) => renderVagas(c.id));
+  }
+
+  function decrementVagas(catId) {
+    const current = state.values[catId] ?? VAGAS_MIN_FLOOR;
+    if (current > VAGAS_MIN_FLOOR) {
+      state.values[catId] = current - 1;
+      saveState(state);
+    }
+    renderVagas(catId);
+  }
+
+  function showToast(cat) {
+    const root = document.getElementById('toast-root');
+    if (!root) return;
+
+    const name = NAMES[Math.floor(Math.random() * NAMES.length)];
+    const city = CITIES[Math.floor(Math.random() * CITIES.length)];
+    const initials = name.split(' ').map((p) => p[0]).join('').slice(0, 2);
+
+    const toast = document.createElement('div');
+    toast.className = 'toast';
+    toast.style.setProperty('--toast-accent', `var(${cat.accentVar})`);
+    toast.innerHTML = `
+      <span class="toast-avatar">${initials}</span>
+      <span class="toast-text">
+        <strong>${name}</strong> de ${city} entrou no grupo de ${cat.label} agora
+        <span>há poucos segundos</span>
+      </span>
+    `;
+    root.appendChild(toast);
+
+    setTimeout(() => {
+      toast.classList.add('leaving');
+      setTimeout(() => toast.remove(), 350);
+    }, 4500);
+  }
+
+  function fireRandomJoin() {
+    const cat = CATEGORIES[Math.floor(Math.random() * CATEGORIES.length)];
+    showToast(cat);
+    decrementVagas(cat.id);
+  }
+
+  function scheduleNext() {
+    const delay = 9000 + Math.random() * 13000; // 9s–22s
+    setTimeout(() => {
+      fireRandomJoin();
+      scheduleNext();
+    }, delay);
+  }
+
+  renderAllVagas();
+  // primeiro pop-up com um delay curto pra não "estourar" assim que a página abre
+  setTimeout(fireRandomJoin, 3500);
+  scheduleNext();
+})();

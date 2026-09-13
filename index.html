@@ -1,0 +1,456 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Radar de Ofertas — Impressão 3D, Informática, Casa e Games</title>
+<meta name="description" content="Ofertas selecionadas todo dia, direto no seu grupo: impressão 3D, peças de PC, casa e eletrodomésticos, e jogos de PS5/Xbox.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=4">
+</head>
+<body>
+
+<!-- ===================== HEADER ===================== -->
+<header class="site-header">
+  <a href="#topo" class="logo">
+    <svg class="logo-mark" viewBox="0 0 32 32" width="28" height="28" aria-hidden="true">
+      <defs>
+        <linearGradient id="logoGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#22d3ee"/>
+          <stop offset="1" stop-color="#34d399"/>
+        </linearGradient>
+      </defs>
+      <circle cx="16" cy="16" r="14.5" fill="none" stroke="url(#logoGrad)" stroke-width="2" opacity=".35"/>
+      <circle cx="16" cy="16" r="9.5" fill="none" stroke="url(#logoGrad)" stroke-width="2" opacity=".65"/>
+      <circle cx="16" cy="16" r="4" fill="url(#logoGrad)"/>
+    </svg>
+    <span>Radar</span> de Ofertas
+  </a>
+  <nav class="quick-nav">
+    <a href="#casa"><span class="dot dot-green"></span>Casa &amp; Eletro</a>
+    <a href="#informatica"><span class="dot dot-cyan"></span>PC &amp; Informática</a>
+    <a href="#games"><span class="dot dot-purple"></span>Games PS5/Xbox</a>
+    <a href="#impressao-3d"><span class="dot dot-orange"></span>Impressão 3D</a>
+  </nav>
+</header>
+
+<main id="topo">
+
+  <!-- ===================== HERO ===================== -->
+  <section class="hero">
+    <div class="hero-glow" aria-hidden="true"></div>
+    <div class="hero-inner">
+      <span class="live-pill"><span class="live-dot"></span>ofertas novas toda hora</span>
+      <p class="eyebrow">RADAR DE OFERTAS</p>
+      <h1>As melhores promoções, <span class="hl">direto no seu grupo</span></h1>
+      <p class="hero-sub">
+        Escolha sua área e receba ofertas verificadas todos os dias — sem enrolação, sem spam, e você pode entrar em quantos grupos quiser.
+      </p>
+
+      <div class="hero-stats">
+        <div><strong>4</strong><span>grupos ativos</span></div>
+        <div><strong>100%</strong><span>grátis, sempre</span></div>
+        <div><strong>+1000</strong><span>ofertas por mês</span></div>
+      </div>
+
+      <!-- Grade de categorias: o "escolha a sua" que orienta quem chega -->
+      <div class="picker-grid">
+
+        <a href="#casa" class="picker-card" data-accent="green">
+          <span class="picker-top">
+            <span class="picker-icon">🏠</span>
+            <span class="picker-tag">● ativo agora</span>
+          </span>
+          <h3>Casa &amp; Eletrodomésticos</h3>
+          <p>Do dia a dia até aquele eletro que faltava</p>
+          <span class="picker-cta">Ver ofertas <span class="arrow">→</span></span>
+        </a>
+
+        <a href="#informatica" class="picker-card" data-accent="cyan">
+          <span class="picker-top">
+            <span class="picker-icon">🖥️</span>
+            <span class="picker-tag">● ativo agora</span>
+          </span>
+          <h3>PC &amp; Informática</h3>
+          <p>Placas de vídeo, processadores, SSDs e periféricos</p>
+          <span class="picker-cta">Ver ofertas <span class="arrow">→</span></span>
+        </a>
+
+        <a href="#games" class="picker-card" data-accent="purple">
+          <span class="picker-top">
+            <span class="picker-icon">🎮</span>
+            <span class="picker-tag">● ativo agora</span>
+          </span>
+          <h3>Games PS5 &amp; Xbox</h3>
+          <p>Jogos, assinaturas e acessórios com desconto</p>
+          <span class="picker-cta">Ver ofertas <span class="arrow">→</span></span>
+        </a>
+
+        <a href="#impressao-3d" class="picker-card" data-accent="orange">
+          <span class="picker-top">
+            <span class="picker-icon">🖨️</span>
+            <span class="picker-tag">● ativo agora</span>
+          </span>
+          <h3>Impressão 3D</h3>
+          <p>Impressoras, filamentos e peças de reposição</p>
+          <span class="picker-cta">Ver ofertas <span class="arrow">→</span></span>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CASA & ELETRODOMÉSTICOS ===================== -->
+  <section id="casa" class="category-section" data-accent="green">
+    <div class="category-hero">
+      <div class="category-kicker">
+        <span class="category-icon">🏠</span>
+        <p class="eyebrow">CASA &amp; ELETRODOMÉSTICOS</p>
+      </div>
+      <h2>Ofertas pra casa e eletrodomésticos</h2>
+      <p class="category-desc">Eletrodomésticos, utensílios e itens do dia a dia com desconto de verdade — do fogão ao aspirador robô.</p>
+      <!-- TODO: trocar # pelo link real do grupo (WhatsApp ou Telegram) -->
+      <a href="#" class="cta-button">Entrar no grupo de Casa &amp; Eletro →</a>
+      <p class="vagas-counter" data-category="casa">⚡ Restam <strong class="vagas-num">--</strong> vagas hoje</p>
+    </div>
+
+    <div class="offers-wrap">
+      <div class="offers-head">
+        <h3>Ofertas recentes</h3>
+        <button class="carousel-btn prev" aria-label="Anterior">‹</button>
+        <button class="carousel-btn next" aria-label="Próximo">›</button>
+      </div>
+      <div class="carousel">
+        <article class="offer-card">
+          <div class="offer-thumb"><img src="assets/products/smart-tv.jpg" alt="Smart TV 55 polegadas 4K" loading="lazy"><span class="badge">56% OFF</span></div>
+          <h4>Smart TV 55" 4K Crystal UHD</h4>
+          <p class="offer-meta">Mercado Livre · há 18 min</p>
+          <p class="price"><s>R$ 3.399,00</s> <strong>R$ 1.499,00</strong></p>
+          <a href="#" class="offer-cta">Entrar no grupo</a>
+        </article>
+        <article class="offer-card">
+          <div class="offer-thumb"><img src="assets/products/air-fryer.jpg" alt="Air Fryer 5L" loading="lazy"><span class="badge">62% OFF</span></div>
+          <h4>Air Fryer 5L Mondial</h4>
+          <p class="offer-meta">Amazon · há 45 min</p>
+          <p class="price"><s>R$ 449,00</s> <strong>R$ 169,00</strong></p>
+          <a href="#" class="offer-cta">Entrar no grupo</a>
+        </article>
+        <article class="offer-card">
+          <div class="offer-thumb"><img src="assets/products/aspirador-robo.jpg" alt="Aspirador robô Wi-Fi" loading="lazy"><span class="badge">63% OFF</span></div>
+          <h4>Aspirador Robô Wi-Fi</h4>
+          <p class="offer-meta">Shopee · há 1h</p>
+          <p class="price"><s>R$ 1.599,00</s> <strong>R$ 599,00</strong></p>
+          <a href="#" class="offer-cta">Entrar no grupo</a>
+        </article>
+        <article class="offer-card">
+          <div class="offer-thumb"><img src="assets/products/smartwatch.jpg" alt="Smartwatch Bluetooth AMOLED" loading="lazy"><span class="badge">70% OFF</span></div>
+          <h4>Smartwatch Bluetooth AMOLED</h4>
+          <p class="offer-meta">Mercado Livre · há 2h</p>
+          <p class="price"><s>R$ 599,00</s> <strong>R$ 179,00</strong></p>
+          <a href="#" class="offer-cta">Entrar no grupo</a>
+        </article>
+        <article class="offer-card">
+          <div class="offer-thumb"><img src="assets/products/cafeteira.jpg" alt="Cafeteira Elétrica Mondial 18 xícaras" loading="lazy"><span class="badge">60% OFF</span></div>
+          <h4>Cafeteira Elétrica Mondial 18 xíc.</h4>
+          <p class="offer-meta">Amazon · há 30 min</p>
+          <p class="price"><s>R$ 249,00</s> <strong>R$ 99,00</strong></p>
+          <a href="#" class="offer-cta">Entrar no grupo</a>
+        </article>
+        <article class="offer-card">
+          <div class="offer-thumb"><img src="assets/products/fone-bluetooth.jpg" alt="Fone de Ouvido Bluetooth TWS" loading="lazy"><span class="badge">60% OFF</span></div>
+          <h4>Fone de Ouvido Bluetooth TWS</h4>
+          <p class="offer-meta">Mercado Livre · há 1h</p>
+          <p class="price"><s>R$ 399,00</s> <strong>R$ 159,00</strong></p>
+          <a href="#" class="offer-cta">Entrar no grupo</a>
+        </article>
+        <article class="offer-card">
+          <div class="offer-thumb"><img src="assets/products/caixa-som-jbl.jpg" alt="Caixa de Som JBL Flip 7" loading="lazy"><span class="badge">50% OFF</span></div>
+          <h4>Caixa de Som JBL Flip 7</h4>
+          <p class="offer-meta">Amazon · há 2h</p>
+          <p class="price"><s>R$ 899,00</s> <strong>R$ 449,00</strong></p>
+          <a href="#" class="offer-cta">Entrar no grupo</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== PC & INFORMÁTICA ===================== -->
+  <section id="informatica" class="category-section" data-accent="cyan">
+    <div class="category-hero">
+      <div class="category-kicker">
+        <span class="category-icon">🖥️</span>
+        <p class="eyebrow">PC &amp; INFORMÁTICA</p>
+      </div>
+      <h2>As melhores ofertas de Informática</h2>
+      <p class="category-desc">Placas de vídeo, processadores, memórias, SSDs e periféricos com as melhores condições, direto no seu grupo.</p>
+      <!-- TODO: trocar # pelo link real do grupo (WhatsApp ou Telegram) -->
+      <a href="#" class="cta-button">Entrar no grupo de Informática →</a>
+      <p class="vagas-counter" data-category="informatica">⚡ Restam <strong class="vagas-num">--</strong> vagas hoje</p>
+    </div>
+
+    <div class="offers-wrap">
+      <div class="offers-head">
+        <h3>Ofertas recentes</h3>
+        <button class="carousel-btn prev" aria-label="Anterior">‹</button>
+        <button class="carousel-btn next" aria-label="Próximo">›</button>
+      </div>
+      <div class="carousel">
+        <article class="offer-card">
+          <div class="offer-thumb"><img src="assets/products/rtx4060.jpg" alt="Placa de vídeo RTX 4060 8GB" loading="lazy"><span class="badge">50% OFF</span></div>
+          <h4>Placa de Vídeo RTX 4060 8GB</h4>
+          <p class="offer-meta">Mercado Livre · há 13 min</p>
+          <p class="price"><s>R$ 2.799,00</s> <strong>R$ 1.399,00</strong></p>
+          <a href="#" class="offer-cta">Entrar no grupo</a>
+        </article>
+        <article class="offer-card">
+          <div class="offer-thumb"><img src="assets/products/monitor-gamer.jpg" alt="Monitor gamer 144Hz" loading="lazy"><span class="badge">58% OFF</span></div>
+          <h4>Monitor Gamer 144Hz 24" Full HD</h4>
+          <p class="offer-meta">Amazon · há 32 min</p>
+          <p class="price"><s>R$ 1.199,00</s> <strong>R$ 499,00</strong></p>
+          <a href="#" class="offer-cta">Entrar no grupo</a>
+        </article>
+        <article class="offer-card">
+          <div class="offer-thumb"><img src="assets/products/ssd-nvme.jpg" alt="SSD NVMe 1TB" loading="lazy"><span class="badge">62% OFF</span></div>
+          <h4>SSD NVMe 1TB WD Black</h4>
+          <p class="offer-meta">Kabum · há 55 min</p>
+          <p class="price"><s>R$ 649,00</s> <strong>R$ 249,00</strong></p>
+          <a href="#" class="offer-cta">Entrar no grupo</a>
+        </article>
+        <article class="offer-card">
+          <div class="offer-thumb"><img src="assets/products/ryzen.jpg" alt="Processador AMD Ryzen 5" loading="lazy"><span class="badge">59% OFF</span></div>
+          <h4>Processador Ryzen 5 5600</h4>
+          <p class="offer-meta">Shopee · há 1h</p>
+          <p class="price"><s>R$ 1.099,00</s> <strong>R$ 449,00</strong></p>
+          <a href="#" class="offer-cta">Entrar no grupo</a>
+        </article>
+        <article class="offer-card">
+          <div class="offer-thumb"><img src="assets/products/teclado-mecanico.jpg" alt="Teclado Mecânico RGB Gamer" loading="lazy"><span class="badge">56% OFF</span></div>
+          <h4>Teclado Mecânico RGB Gamer</h4>
+          <p class="offer-meta">Kabum · há 20 min</p>
+          <p class="price"><s>R$ 799,00</s> <strong>R$ 349,00</strong></p>
+          <a href="#" class="offer-cta">Entrar no grupo</a>
+        </article>
+        <article class="offer-card">
+          <div class="offer-thumb"><img src="assets/products/mouse-gamer.jpg" alt="Mouse Gamer RGB" loading="lazy"><span class="badge">60% OFF</span></div>
+          <h4>Mouse Gamer RGB</h4>
+          <p class="offer-meta">Amazon · há 50 min</p>
+          <p class="price"><s>R$ 249,00</s> <strong>R$ 99,00</strong></p>
+          <a href="#" class="offer-cta">Entrar no grupo</a>
+        </article>
+        <article class="offer-card">
+          <div class="offer-thumb"><img src="assets/products/headset-gamer.jpg" alt="Headset Gamer com microfone" loading="lazy"><span class="badge">55% OFF</span></div>
+          <h4>Headset Gamer com Microfone</h4>
+          <p class="offer-meta">Mercado Livre · há 1h30</p>
+          <p class="price"><s>R$ 399,00</s> <strong>R$ 179,00</strong></p>
+          <a href="#" class="offer-cta">Entrar no grupo</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== GAMES PS5 / XBOX ===================== -->
+  <section id="games" class="category-section" data-accent="purple">
+    <div class="category-hero">
+      <div class="category-kicker">
+        <span class="category-icon">🎮</span>
+        <p class="eyebrow">GAMES PS5 &amp; XBOX</p>
+      </div>
+      <h2>Promoções de jogos PS5 e Xbox</h2>
+      <p class="category-desc">Os melhores preços em jogos físicos e digitais, assinaturas e acessórios pra PS5 e Xbox, garimpados todos os dias.</p>
+      <!-- TODO: trocar # pelo link real do grupo (WhatsApp ou Telegram) -->
+      <a href="#" class="cta-button">Entrar no grupo de Games →</a>
+      <p class="vagas-counter" data-category="games">⚡ Restam <strong class="vagas-num">--</strong> vagas hoje</p>
+    </div>
+
+    <div class="offers-wrap">
+      <div class="offers-head">
+        <h3>Ofertas recentes</h3>
+        <button class="carousel-btn prev" aria-label="Anterior">‹</button>
+        <button class="carousel-btn next" aria-label="Próximo">›</button>
+      </div>
+      <div class="carousel">
+        <article class="offer-card">
+          <div class="offer-thumb"><img src="assets/products/ea-fc25.jpg" alt="EA Sports FC 25 PS5" loading="lazy"><span class="badge">66% OFF</span></div>
+          <h4>EA Sports FC 25 — PS5</h4>
+          <p class="offer-meta">Mercado Livre · há 25 min</p>
+          <p class="price"><s>R$ 349,00</s> <strong>R$ 119,00</strong></p>
+          <a href="#" class="offer-cta">Entrar no grupo</a>
+        </article>
+        <article class="offer-card">
+          <div class="offer-thumb"><img src="assets/products/gta5.jpg" alt="GTA V PS5" loading="lazy"><span class="badge">65% OFF</span></div>
+          <h4>GTA V — PS5/Xbox</h4>
+          <p class="offer-meta">CDKeys · há 50 min</p>
+          <p class="price"><s>R$ 199,00</s> <strong>R$ 69,00</strong></p>
+          <a href="#" class="offer-cta">Entrar no grupo</a>
+        </article>
+        <article class="offer-card">
+          <div class="offer-thumb"><img src="assets/products/dualsense.jpg" alt="Controle DualSense PS5" loading="lazy"><span class="badge">58% OFF</span></div>
+          <h4>Controle DualSense PS5</h4>
+          <p class="offer-meta">Amazon · há 3h</p>
+          <p class="price"><s>R$ 549,00</s> <strong>R$ 229,00</strong></p>
+          <a href="#" class="offer-cta">Entrar no grupo</a>
+        </article>
+        <article class="offer-card">
+          <div class="offer-thumb"><img src="assets/products/god-of-war.jpg" alt="God of War Ragnarök PS5" loading="lazy"><span class="badge">67% OFF</span></div>
+          <h4>God of War Ragnarök — PS5/Xbox</h4>
+          <p class="offer-meta">Shopee · há 2h</p>
+          <p class="price"><s>R$ 299,00</s> <strong>R$ 99,00</strong></p>
+          <a href="#" class="offer-cta">Entrar no grupo</a>
+        </article>
+        <article class="offer-card">
+          <div class="offer-thumb"><img src="assets/products/spider-man-2.jpg" alt="Marvel's Spider-Man 2 PS5" loading="lazy"><span class="badge">60% OFF</span></div>
+          <h4>Marvel's Spider-Man 2 — PS5</h4>
+          <p class="offer-meta">Mercado Livre · há 15 min</p>
+          <p class="price"><s>R$ 349,00</s> <strong>R$ 139,00</strong></p>
+          <a href="#" class="offer-cta">Entrar no grupo</a>
+        </article>
+        <article class="offer-card">
+          <div class="offer-thumb"><img src="assets/products/controle-xbox.jpg" alt="Controle sem fio Xbox Series" loading="lazy"><span class="badge">49% OFF</span></div>
+          <h4>Controle Sem Fio Xbox Series</h4>
+          <p class="offer-meta">Amazon · há 1h</p>
+          <p class="price"><s>R$ 449,00</s> <strong>R$ 229,00</strong></p>
+          <a href="#" class="offer-cta">Entrar no grupo</a>
+        </article>
+        <article class="offer-card">
+          <div class="offer-thumb"><img src="assets/products/headset-pulse-ps5.jpg" alt="Headset PlayStation Pulse Elite" loading="lazy"><span class="badge">50% OFF</span></div>
+          <h4>Headset PlayStation Pulse Elite</h4>
+          <p class="offer-meta">Amazon · há 2h</p>
+          <p class="price"><s>R$ 899,00</s> <strong>R$ 449,00</strong></p>
+          <a href="#" class="offer-cta">Entrar no grupo</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== IMPRESSÃO 3D ===================== -->
+  <section id="impressao-3d" class="category-section" data-accent="orange">
+    <div class="category-hero">
+      <div class="category-kicker">
+        <span class="category-icon">🖨️</span>
+        <p class="eyebrow">IMPRESSÃO 3D</p>
+      </div>
+      <h2>As melhores ofertas de Impressão 3D</h2>
+      <p class="category-desc">Impressoras, filamentos, peças de reposição e acessórios com os melhores preços do mercado, selecionados todo dia pra você.</p>
+      <!-- TODO: trocar # pelo link real do grupo (WhatsApp ou Telegram) -->
+      <a href="#" class="cta-button">Entrar no grupo de Impressão 3D →</a>
+      <p class="vagas-counter" data-category="impressao-3d">⚡ Restam <strong class="vagas-num">--</strong> vagas hoje</p>
+    </div>
+
+    <div class="offers-wrap">
+      <div class="offers-head">
+        <h3>Ofertas recentes</h3>
+        <button class="carousel-btn prev" aria-label="Anterior">‹</button>
+        <button class="carousel-btn next" aria-label="Próximo">›</button>
+      </div>
+      <div class="carousel">
+        <article class="offer-card">
+          <div class="offer-thumb"><img src="assets/products/bambu-lab.jpg" alt="Impressora 3D Bambu Lab A1 Mini" loading="lazy"><span class="badge">50% OFF</span></div>
+          <h4>Impressora Bambu Lab A1 Mini</h4>
+          <p class="offer-meta">Mercado Livre · há 22 min</p>
+          <p class="price"><s>R$ 2.799,00</s> <strong>R$ 1.399,00</strong></p>
+          <a href="#" class="offer-cta">Entrar no grupo</a>
+        </article>
+        <article class="offer-card">
+          <div class="offer-thumb"><img src="assets/products/impressora-ender.jpg" alt="Impressora 3D Creality Ender 3 V3 SE" loading="lazy"><span class="badge">61% OFF</span></div>
+          <h4>Impressora 3D Creality Ender 3 V3 SE</h4>
+          <p class="offer-meta">Amazon · há 40 min</p>
+          <p class="price"><s>R$ 1.399,00</s> <strong>R$ 549,00</strong></p>
+          <a href="#" class="offer-cta">Entrar no grupo</a>
+        </article>
+        <article class="offer-card">
+          <div class="offer-thumb"><img src="assets/products/filamento-pla.jpg" alt="Filamento PLA+" loading="lazy"><span class="badge">67% OFF</span></div>
+          <h4>Filamento PLA+ 1kg Sunlu</h4>
+          <p class="offer-meta">Shopee · há 1h</p>
+          <p class="price"><s>R$ 119,00</s> <strong>R$ 39,00</strong></p>
+          <a href="#" class="offer-cta">Entrar no grupo</a>
+        </article>
+        <article class="offer-card">
+          <div class="offer-thumb"><img src="assets/products/elegoo-saturn.jpg" alt="Impressora de resina Elegoo Saturn 4" loading="lazy"><span class="badge">55% OFF</span></div>
+          <h4>Impressora de Resina Elegoo Saturn 4</h4>
+          <p class="offer-meta">AliExpress · há 2h</p>
+          <p class="price"><s>R$ 1.999,00</s> <strong>R$ 899,00</strong></p>
+          <a href="#" class="offer-cta">Entrar no grupo</a>
+        </article>
+        <article class="offer-card">
+          <div class="offer-thumb"><img src="assets/products/filamento-petg.jpg" alt="Filamento PETG 1kg" loading="lazy"><span class="badge">60% OFF</span></div>
+          <h4>Filamento PETG 1kg Masterprint</h4>
+          <p class="offer-meta">Shopee · há 40 min</p>
+          <p class="price"><s>R$ 149,00</s> <strong>R$ 59,00</strong></p>
+          <a href="#" class="offer-cta">Entrar no grupo</a>
+        </article>
+        <article class="offer-card">
+          <div class="offer-thumb"><img src="assets/products/base-magnetica.jpg" alt="Base magnética PEI para mesa" loading="lazy"><span class="badge">58% OFF</span></div>
+          <h4>Base Magnética PEI pra Mesa</h4>
+          <p class="offer-meta">Mercado Livre · há 1h</p>
+          <p class="price"><s>R$ 129,00</s> <strong>R$ 54,00</strong></p>
+          <a href="#" class="offer-cta">Entrar no grupo</a>
+        </article>
+        <article class="offer-card">
+          <div class="offer-thumb"><img src="assets/products/kit-nozzle.jpg" alt="Kit de bicos Nozzle MK8" loading="lazy"><span class="badge">59% OFF</span></div>
+          <h4>Kit 5 Bicos Nozzle MK8</h4>
+          <p class="offer-meta">Shopee · há 3h</p>
+          <p class="price"><s>R$ 59,00</s> <strong>R$ 24,00</strong></p>
+          <a href="#" class="offer-cta">Entrar no grupo</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FAQ ===================== -->
+  <section class="faq">
+    <h2>Perguntas rápidas</h2>
+    <div class="faq-grid">
+      <div class="faq-item">
+        <h4>É grátis pra entrar?</h4>
+        <p>Sim, 100% grátis, sem taxa nenhuma. Você só entra e começa a receber as ofertas.</p>
+      </div>
+      <div class="faq-item">
+        <h4>Vou receber spam?</h4>
+        <p>Não. Só ofertas selecionadas das categorias do grupo — sem corrente, sem mensagem de terceiros.</p>
+      </div>
+      <div class="faq-item">
+        <h4>Posso entrar em mais de um grupo?</h4>
+        <p>Pode sim! Escolha quantos fizerem sentido pra você — não precisa se limitar a um só.</p>
+      </div>
+      <div class="faq-item">
+        <h4>Como as ofertas são escolhidas?</h4>
+        <p>Comparamos preços entre as principais lojas e só enviamos quando o desconto realmente vale a pena.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="site-footer">
+  <div class="footer-logo">
+    <svg width="22" height="22" viewBox="0 0 32 32" aria-hidden="true">
+      <circle cx="16" cy="16" r="14.5" fill="none" stroke="url(#logoGrad)" stroke-width="2" opacity=".35"/>
+      <circle cx="16" cy="16" r="9.5" fill="none" stroke="url(#logoGrad)" stroke-width="2" opacity=".65"/>
+      <circle cx="16" cy="16" r="4" fill="url(#logoGrad)"/>
+    </svg>
+    <span>Radar</span> de Ofertas
+  </div>
+  <p>De impressão 3D a jogo novo, sempre tem uma promoção esperando por você.</p>
+  <div class="footer-links">
+    <a href="#casa">Casa &amp; Eletro</a>
+    <a href="#informatica">PC &amp; Informática</a>
+    <a href="#games">Games</a>
+    <a href="#impressao-3d">Impressão 3D</a>
+  </div>
+  <p class="disclaimer">Este site é independente e não possui vínculo com as marcas ou lojas citadas nas ofertas.</p>
+</footer>
+
+<!-- Pop-ups de "fulano entrou no grupo agora" -->
+<div id="toast-root" class="toast-root" aria-live="polite" aria-atomic="true"></div>
+
+<!-- Gerado a partir de config.template.js no start do container (Docker),
+     com os links reais dos grupos vindos de variável de ambiente.
+     Em dev local (sem Docker) este arquivo não existe — os botões seguem
+     com href="#" até você rodar via container ou criar um config.js manual. -->
+<script src="config.js" onerror="console.warn('config.js não encontrado — rodando fora do container, links dos grupos ficam como placeholder.')"></script>
+<script src="script.js?v=5"></script>
+</body>
+</html>

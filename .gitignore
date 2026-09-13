@@ -1,0 +1,6 @@
+# Gerado em tempo de execução pelo container — nunca deve ser commitado
+config.js
+
+# Editor / SO
+.DS_Store
+Thumbs.db
