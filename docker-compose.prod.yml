@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   app:
-    image: ghcr.io/${GITHUB_REPOSITORY}:latest
+    image: ghcr.io/orakysec/radar-de-ofertas:latest
     container_name: radarofertas_app
     environment:
       # Links dos grupos (WhatsApp ou Telegram) — configure no Portainer,

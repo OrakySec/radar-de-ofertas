@@ -21,9 +21,15 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      # Tags de imagem Docker só aceitam letras minúsculas — o nome do
+      # repositório (ex.: OrakySec/radar-de-ofertas) pode ter maiúsculas.
+      - name: Normalize image name to lowercase
+        id: image
+        run: echo "name=ghcr.io/${GITHUB_REPOSITORY,,}" >> "$GITHUB_OUTPUT"
+
       - name: Build and push image
         uses: docker/build-push-action@v6
         with:
           context: .
           push: true
-          tags: ghcr.io/${{ github.repository }}:latest
+          tags: ${{ steps.image.outputs.name }}:latest
