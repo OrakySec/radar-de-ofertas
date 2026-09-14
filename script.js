@@ -85,11 +85,21 @@ function trackEvent(eventName, params) {
   }).catch(() => {});
 }
 
-// Nomes de evento adaptados do /3d: como aqui não tem modal (o CTA já é o
-// próprio link do grupo), cada clique dispara direto o evento genérico de
-// conversão (JoinGroup) + o específico do canal (Telegram/WhatsApp).
+// Evento de conversão "de entrada no grupo", um por categoria — só a
+// Impressão 3D mantém o nome antigo (JoinGroup), porque já tem histórico
+// de otimização de campanha em cima desse nome no /3d. As outras 3
+// categorias ganharam nome próprio pra dar pra otimizar/relatar cada
+// campanha separadamente.
+const JOIN_EVENT_BY_CATEGORY = {
+  casa: 'JoinGroupCasa',
+  informatica: 'JoinGroupInformatica',
+  games: 'JoinGroupGames',
+  impressao3d: 'JoinGroup',
+};
+
 function trackGroupClick(url, category) {
-  trackEvent('JoinGroup', { category });
+  const joinEventName = JOIN_EVENT_BY_CATEGORY[category] || 'JoinGroup';
+  trackEvent(joinEventName, { category });
 
   if (/t\.me|telegram/i.test(url)) {
     trackEvent('CliqueTelegram', { category });
