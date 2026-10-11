@@ -1,0 +1,226 @@
+/* =====================================================
+   RADAR DE OFERTAS — páginas de nicho (/casa, /informatica,
+   /games, /impressao-3d)
+
+   Complementa o styles.css (que continua sendo o do site principal,
+   sem nenhuma alteração). A cor de destaque de cada página vem do
+   [data-accent] do <main>: --accent-color / --accent-dark / --accent-soft.
+   ===================================================== */
+
+main [id]{ scroll-margin-top: 76px; }
+
+.quick-nav .nav-hub{ color: var(--cyan); }
+.quick-nav .nav-hub:hover{ color: var(--text); }
+
+.text-link{
+  color: var(--accent-color, var(--cyan));
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ---------- hero ---------- */
+.niche-hero{
+  position: relative;
+  text-align: center;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.niche-glow{
+  position: absolute;
+  inset: -10% 0 auto 0;
+  height: 640px;
+  width: 100%;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(560px 320px at 18% 16%, var(--accent-soft), transparent 70%),
+    radial-gradient(560px 320px at 82% 10%, var(--accent-soft), transparent 70%),
+    radial-gradient(700px 380px at 50% 62%, rgba(34,211,238,.07), transparent 70%);
+  filter: blur(20px);
+}
+@supports (background: color-mix(in srgb, red 50%, transparent)){
+  .niche-glow{
+    background:
+      radial-gradient(560px 320px at 18% 16%, color-mix(in srgb, var(--accent-color) 24%, transparent), transparent 70%),
+      radial-gradient(560px 320px at 82% 10%, color-mix(in srgb, var(--accent-color) 18%, transparent), transparent 70%),
+      radial-gradient(700px 380px at 50% 62%, rgba(34,211,238,.07), transparent 70%);
+  }
+}
+
+.niche-hero-inner{
+  max-width: 860px;
+  margin: 0 auto;
+  padding: clamp(2.2rem, 6vw, 4.2rem) clamp(1rem, 4vw, 3rem) clamp(2.5rem, 6vw, 3.5rem);
+}
+
+.niche-hero h1{
+  font-size: clamp(2.1rem, 5.4vw, 3.6rem);
+  font-weight: 800;
+  letter-spacing: -.02em;
+}
+.niche-hero h1 .hl{
+  background: linear-gradient(100deg, var(--accent-color), var(--accent-dark));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.niche-hero .hero-sub{
+  max-width: 640px;
+  margin: 1.2rem auto 0;
+}
+
+.niche-cta-wrap{ margin-top: 2rem; }
+
+.cta-button.niche-cta{
+  padding: 1.1rem 2.2rem;
+  font-size: 1.08rem;
+  border-radius: 14px;
+}
+
+.niche-microcopy{
+  margin-top: .8rem;
+  color: var(--text-faint);
+  font-size: .82rem;
+}
+
+.niche-hero .hero-stats{ margin: 2.4rem 0 0; }
+
+/* celular: botão em largura total (sem a seta "órfã" na linha de baixo) e
+   os 3 números do hero cabendo numa linha só */
+@media (max-width: 520px){
+  .cta-button.niche-cta{
+    display: block;
+    width: 100%;
+    padding: 1rem .8rem;
+    font-size: 1rem;
+    text-wrap: balance;
+  }
+  .niche-hero .hero-stats{ gap: 1.1rem; }
+  .niche-hero .hero-stats strong{ font-size: 1.3rem; }
+  .niche-hero .hero-stats span{ font-size: .76rem; }
+}
+
+/* ---------- seções ---------- */
+.niche-section{
+  padding: clamp(2.5rem, 6vw, 4rem) clamp(1rem, 4vw, 3rem);
+}
+.niche-section.alt{
+  border-top: 1px solid var(--card-border);
+  background:
+    radial-gradient(1200px 300px at 50% -80px, var(--accent-soft), transparent 70%),
+    var(--bg-alt);
+}
+
+.niche-section-head{
+  max-width: 720px;
+  margin: 0 auto 1.8rem;
+  text-align: center;
+}
+.niche-section-head h2{
+  font-size: clamp(1.5rem, 3vw, 2.1rem);
+  font-weight: 800;
+  letter-spacing: -.01em;
+}
+.niche-section-head p{
+  margin-top: .6rem;
+  color: var(--text-dim);
+}
+
+.niche-section .offers-wrap{ margin: 0 auto; }
+
+/* barra de rolagem do carrossel no tema escuro (o padrão do navegador é branco) */
+.niche-section .carousel{
+  scrollbar-width: thin;
+  scrollbar-color: var(--card-border) transparent;
+}
+.niche-section .carousel::-webkit-scrollbar{ height: 8px; }
+.niche-section .carousel::-webkit-scrollbar-track{ background: transparent; }
+.niche-section .carousel::-webkit-scrollbar-thumb{
+  background: var(--card-border);
+  border-radius: 999px;
+}
+
+/* ---------- "o que tem no grupo" ---------- */
+.chips{
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+  max-width: 860px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: .6rem;
+}
+.chip{
+  padding: .55rem 1rem;
+  border-radius: 999px;
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  font-size: .9rem;
+  font-weight: 600;
+}
+.chip::before{
+  content: "✓";
+  margin-right: .45rem;
+  color: var(--accent-color);
+  font-weight: 800;
+}
+
+/* ---------- como funciona ---------- */
+.steps{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.1rem;
+  max-width: var(--content-max);
+  margin: 0 auto;
+}
+@media (max-width: 760px){
+  .steps{ grid-template-columns: 1fr; }
+}
+.step{
+  background: linear-gradient(160deg, var(--card) 0%, #0f141b 100%);
+  border: 1px solid var(--card-border);
+  border-radius: 18px;
+  padding: 1.5rem;
+  box-shadow: var(--shadow-soft);
+}
+.step-num{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  margin-bottom: .9rem;
+  border-radius: 50%;
+  font-weight: 800;
+  color: #0b0e12;
+  background: linear-gradient(135deg, var(--accent-color), var(--accent-dark));
+  box-shadow: 0 0 14px var(--accent-soft);
+}
+.step h3{ font-size: 1.05rem; margin-bottom: .4rem; }
+.step p{ color: var(--text-dim); font-size: .92rem; }
+
+/* ---------- CTA final ---------- */
+.niche-final{
+  max-width: 760px;
+  margin: 0 auto;
+  padding: clamp(2rem, 5vw, 3rem) clamp(1.2rem, 4vw, 2.5rem);
+  text-align: center;
+  border-radius: 24px;
+  border: 1px solid var(--card-border);
+  background:
+    radial-gradient(600px 220px at 50% 0, var(--accent-soft), transparent 70%),
+    var(--card);
+  box-shadow: var(--shadow-lift);
+}
+.niche-final h2{
+  font-size: clamp(1.5rem, 3vw, 2.1rem);
+  font-weight: 800;
+  letter-spacing: -.01em;
+}
+.niche-final > p:not(.vagas-counter){
+  margin: .7rem 0 1.6rem;
+  color: var(--text-dim);
+}

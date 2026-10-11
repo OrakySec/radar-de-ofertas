@@ -36,6 +36,73 @@ jobs:
         id: image
         run: echo "name=ghcr.io/${GITHUB_REPOSITORY,,}${{ matrix.image-suffix }}" >> "$GITHUB_OUTPUT"
 
+      # --- Teste de fumaça do site (só a imagem do site estático) ---------
+      # Um nginx.conf quebrado derrubaria o site inteiro no próximo deploy.
+      # Então, antes de publicar, builda a imagem, sobe o container e confere
+      # as rotas principais. Se falhar, o job para aqui e nada é publicado.
+      - name: Build image for smoke test
+        if: matrix.image-suffix == ''
+        uses: docker/build-push-action@v6
+        with:
+          context: ${{ matrix.context }}
+          file: ${{ matrix.dockerfile }}
+          load: true
+          push: false
+          tags: radar-smoke:test
+
+      - name: Smoke test (nginx + páginas)
+        if: matrix.image-suffix == ''
+        run: |
+          set -eu
+          docker run -d --name smoke -p 8080:80 \
+            -e LINK_CASA=https://chat.whatsapp.com/smoketest \
+            -e LINK_GAMES=https://t.me/smoketest \
+            radar-smoke:test
+
+          for i in $(seq 1 30); do
+            curl -fs http://localhost:8080/ >/dev/null 2>&1 && break || sleep 1
+          done
+
+          fail() { echo "FALHOU: $1"; docker logs smoke; exit 1; }
+
+          status() { curl -s -o /dev/null -w '%{http_code}' "http://localhost:8080$1" || true; }
+          expect() {
+            code=$(status "$1")
+            [ "$code" = "$2" ] || fail "$1 -> $code (esperado $2)"
+            echo "ok  $1 -> $code"
+          }
+
+          expect /                          200
+          expect /casa                      200
+          expect /informatica               200
+          expect /games                     200
+          expect /impressao-3d              200
+          expect "/casa?gclid=abc"          200
+          expect /favicon.svg               200
+          expect /favicon.ico               200
+          expect /apple-touch-icon.png      200
+          expect /niche.css                 200
+          expect /niche.js                  200
+          expect /script.js                 200
+          expect /config.js                 200
+          expect /nao-existe                404
+
+          # /casa/ tem que redirecionar pra /casa mantendo a query string
+          loc=$(curl -sI "http://localhost:8080/casa/?gclid=abc" | tr -d '\r' | awk 'tolower($1)=="location:"{print $2}')
+          [ "$loc" = "/casa?gclid=abc" ] || fail "redirect de /casa/ -> '$loc' (esperado /casa?gclid=abc)"
+          echo "ok  /casa/ -> 301 $loc"
+
+          # cada página de nicho carrega o nicho certo
+          curl -s http://localhost:8080/casa         | grep -q "RADAR_NICHE = 'casa'"         || fail "/casa sem RADAR_NICHE"
+          curl -s http://localhost:8080/impressao-3d | grep -q "RADAR_NICHE = 'impressao-3d'" || fail "/impressao-3d sem RADAR_NICHE"
+
+          # config.js foi gerado com as variáveis de ambiente e não fica em cache
+          curl -s http://localhost:8080/config.js | grep -q 'chat.whatsapp.com/smoketest' || fail "config.js sem o LINK_CASA injetado"
+          curl -sI http://localhost:8080/config.js | tr -d '\r' | grep -qi '^cache-control: no-cache' || fail "config.js sem Cache-Control: no-cache"
+
+          echo "Smoke test OK"
+          docker rm -f smoke >/dev/null
+
       - name: Build and push image
         uses: docker/build-push-action@v6
         with:

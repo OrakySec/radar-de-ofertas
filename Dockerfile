@@ -5,9 +5,17 @@
 
 FROM nginx:alpine
 
-# Site estático
+# Site estático: página principal + páginas de nicho (geradas por
+# scripts/build-niches.js: /casa, /informatica, /games, /impressao-3d)
 COPY index.html styles.css script.js config.template.js /usr/share/nginx/html/
+COPY niche.css niche.js /usr/share/nginx/html/
+COPY casa.html informatica.html games.html impressao-3d.html /usr/share/nginx/html/
+COPY favicon.svg favicon.ico favicon-16x16.png favicon-32x32.png apple-touch-icon.png /usr/share/nginx/html/
 COPY assets /usr/share/nginx/html/assets
+
+# URLs limpas (/casa em vez de /casa.html), redirect de /casa/ -> /casa e
+# cache correto do config.js (ver docker/nginx.conf).
+COPY docker/nginx.conf /etc/nginx/conf.d/default.conf
 
 # Script que roda automaticamente no start do container: a imagem oficial
 # do nginx executa qualquer *.sh executável em /docker-entrypoint.d/

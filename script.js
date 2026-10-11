@@ -241,14 +241,24 @@ document.querySelectorAll('.offers-wrap').forEach((wrap) => {
     }, 4500);
   }
 
+  // Nas páginas de nicho (/casa, /games...), window.RADAR_NICHE diz qual é
+  // o nicho da página: os pop-ups falam só dele (não faz sentido "entrou no
+  // grupo de Games" na página de Casa) e vêm mais espaçados, porque aqui
+  // todos caem na mesma categoria — no site principal eles se dividem
+  // entre as 4. No site principal RADAR_NICHE não existe e nada muda.
+  const NICHE_ID = window.RADAR_NICHE || null;
+  const POOL = NICHE_ID ? CATEGORIES.filter((c) => c.id === NICHE_ID) : CATEGORIES;
+  const ACTIVE = POOL.length ? POOL : CATEGORIES;
+  const DELAY_FACTOR = NICHE_ID ? 3 : 1;
+
   function fireRandomJoin() {
-    const cat = CATEGORIES[Math.floor(Math.random() * CATEGORIES.length)];
+    const cat = ACTIVE[Math.floor(Math.random() * ACTIVE.length)];
     showToast(cat);
     decrementVagas(cat.id);
   }
 
   function scheduleNext() {
-    const delay = 9000 + Math.random() * 13000; // 9s–22s
+    const delay = (9000 + Math.random() * 13000) * DELAY_FACTOR; // site: 9s–22s
     setTimeout(() => {
       fireRandomJoin();
       scheduleNext();
