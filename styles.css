@@ -629,3 +629,132 @@ p{ margin: 0; }
 }
 .footer-links a:hover{ color: var(--text); }
 .disclaimer{ color: var(--text-faint) !important; font-size: .78rem !important; margin-top: 1rem; }
+
+/* ---------- modal de escolha de canal (WhatsApp / Telegram) ---------- */
+html.choice-open{ overflow: hidden; }
+
+.choice-modal{
+  position: fixed;
+  inset: 0;
+  z-index: 1100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+.choice-modal[hidden]{ display: none; }
+
+.choice-backdrop{
+  position: absolute;
+  inset: 0;
+  background: rgba(5,8,12,.78);
+  backdrop-filter: blur(4px);
+  animation: choice-fade .2s ease;
+}
+
+.choice-card{
+  position: relative;
+  width: min(420px, 100%);
+  padding: 2.1rem 1.5rem 1.4rem;
+  text-align: center;
+  border-radius: 22px;
+  border: 1px solid var(--card-border);
+  background:
+    radial-gradient(420px 170px at 50% 0, var(--accent-soft, transparent), transparent 70%),
+    var(--card);
+  box-shadow: var(--shadow-lift);
+  animation: choice-pop .22s ease;
+}
+
+.choice-close{
+  position: absolute;
+  top: .7rem;
+  right: .7rem;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid var(--card-border);
+  background: transparent;
+  color: var(--text-dim);
+  font-size: 1.3rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: color .15s, border-color .15s;
+}
+.choice-close:hover{ color: var(--text); border-color: var(--text-faint); }
+
+.choice-eyebrow{
+  margin: 0 0 .5rem;
+  font-size: .78rem;
+  font-weight: 800;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--accent-color, var(--cyan));
+}
+.choice-card h2{
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -.01em;
+}
+.choice-sub{
+  margin: .5rem 0 1.1rem;
+  color: var(--text-dim);
+  font-size: .92rem;
+}
+
+.choice-option{
+  display: flex;
+  align-items: center;
+  gap: .9rem;
+  width: 100%;
+  margin-top: .7rem;
+  padding: .9rem 1.1rem;
+  border-radius: 14px;
+  text-align: left;
+  font-size: 1.02rem;
+  font-weight: 800;
+  color: #fff;
+  box-shadow: 0 10px 24px -10px rgba(0,0,0,.6);
+  transition: transform .15s ease, filter .15s ease;
+}
+.choice-option:hover{ transform: translateY(-2px); filter: brightness(1.08); }
+.choice-option:focus-visible,
+.choice-close:focus-visible{ outline: 2px solid #fff; outline-offset: 3px; }
+
+.choice-wa{ background: linear-gradient(135deg, #1da851, #0f7a3a); }
+.choice-tg{ background: linear-gradient(135deg, #2496d6, #1670a8); }
+
+.choice-ico{
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.2);
+  font-size: 1.3rem;
+}
+.choice-txt small{
+  display: block;
+  margin-top: .1rem;
+  font-size: .78rem;
+  font-weight: 600;
+  opacity: .88;
+}
+
+.choice-micro{
+  margin: 1rem 0 0;
+  color: var(--text-faint);
+  font-size: .78rem;
+}
+
+@keyframes choice-fade{ from{ opacity: 0; } to{ opacity: 1; } }
+@keyframes choice-pop{
+  from{ opacity: 0; transform: translateY(14px) scale(.97); }
+  to{ opacity: 1; transform: translateY(0) scale(1); }
+}
+@media (prefers-reduced-motion: reduce){
+  .choice-backdrop, .choice-card{ animation: none; }
+  .choice-option{ transition: none; }
+}

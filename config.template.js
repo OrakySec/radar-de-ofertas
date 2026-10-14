@@ -8,6 +8,17 @@ window.RADAR_LINKS = {
   impressao3d: "${LINK_IMPRESSAO3D}"
 };
 
+// Categorias com os DOIS canais (hoje só a Impressão 3D): com WhatsApp e
+// Telegram preenchidos, o botão "Entrar no grupo" abre um modal pra pessoa
+// escolher. Se só um estiver preenchido, vai direto nele; se nenhum, cai no
+// link único de RADAR_LINKS acima. Variável vazia = canal desligado.
+window.RADAR_CHANNELS = {
+  impressao3d: {
+    whatsapp: "${LINK_IMPRESSAO3D_WHATSAPP}",
+    telegram: "${LINK_IMPRESSAO3D_TELEGRAM}"
+  }
+};
+
 // IDs de tracking (Meta Pixel / Google Ads). Deixe em branco na env var
 // pra desativar aquele tracking sem precisar mexer em código.
 window.RADAR_TRACKING = {

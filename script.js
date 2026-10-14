@@ -4,8 +4,14 @@
 // Se config.js não existir (rodando local sem Docker) ou a env var de
 // uma categoria não estiver setada, o link daquela categoria continua
 // como está no HTML (href="#") — nunca quebra a página.
+//
+// Categorias com os DOIS canais configurados (window.RADAR_CHANNELS, hoje só
+// a Impressão 3D) não vão direto pro link: o botão abre um modal pra pessoa
+// escolher entre WhatsApp e Telegram. Com um canal só (ou só o link único
+// antigo em RADAR_LINKS), segue indo direto, como sempre.
 (function () {
   const links = (typeof window.RADAR_LINKS === 'object' && window.RADAR_LINKS) || {};
+  const channels = (typeof window.RADAR_CHANNELS === 'object' && window.RADAR_CHANNELS) || {};
 
   // data-category das seções -> chave usada em config.template.js
   const SECTION_TO_KEY = {
@@ -15,15 +21,36 @@
     'impressao-3d': 'impressao3d',
   };
 
-  Object.entries(SECTION_TO_KEY).forEach(([sectionId, key]) => {
-    const url = links[key];
-    // placeholder não preenchido (env var vazia) ou template não processado
-    if (!url || url.startsWith('${') || url === '#') return;
+  // placeholder não preenchido (env var vazia) ou template não processado
+  const isUrl = (u) => typeof u === 'string' && u !== '' && u !== '#' && !u.startsWith('${');
 
+  Object.entries(SECTION_TO_KEY).forEach(([sectionId, key]) => {
     const section = document.getElementById(sectionId);
     if (!section) return;
 
-    section.querySelectorAll('a.cta-button, a.offer-cta').forEach((a) => {
+    const buttons = section.querySelectorAll('a.cta-button, a.offer-cta');
+    const ch = channels[key] || {};
+    const whatsapp = isUrl(ch.whatsapp) ? ch.whatsapp : null;
+    const telegram = isUrl(ch.telegram) ? ch.telegram : null;
+
+    // Os dois canais: abre o modal de escolha.
+    if (whatsapp && telegram) {
+      buttons.forEach((a) => {
+        a.href = '#';
+        a.setAttribute('role', 'button');
+        a.addEventListener('click', (e) => {
+          e.preventDefault();
+          openChannelChoice(key, { whatsapp, telegram }, a);
+        });
+      });
+      return;
+    }
+
+    // Um canal só (ou o link único): vai direto pro grupo.
+    const url = whatsapp || telegram || (isUrl(links[key]) ? links[key] : null);
+    if (!url) return;
+
+    buttons.forEach((a) => {
       a.href = url;
       a.target = '_blank';
       a.rel = 'noopener noreferrer';
@@ -53,6 +80,20 @@ function getFbc() {
   return `fb.1.${Date.now()}.${fbclid}`;
 }
 
+// Google Ads: UMA conversão por entrada no grupo. Fica fora do trackEvent de
+// propósito — o trackEvent roda várias vezes por clique (JoinGroup,
+// JoinGroup3D, CliqueWhatsApp...) e cada uma contaria como conversão.
+function trackGoogleConversion(params) {
+  const tracking = window.RADAR_TRACKING || {};
+  const adsId = tracking.googleAdsId;
+  const adsLabel = tracking.googleAdsLabel;
+  if (typeof gtag === 'function' && adsId && adsLabel && adsId.indexOf('${') !== 0 && adsLabel.indexOf('${') !== 0) {
+    gtag('event', 'conversion', { send_to: `${adsId}/${adsLabel}`, ...(params || {}) });
+  }
+}
+
+// Meta: Pixel (navegador) + CAPI (servidor), com o MESMO eventId nos dois
+// pra o Meta deduplicar.
 function trackEvent(eventName, params) {
   const eventId = Math.random().toString(36).substring(2, 15) + Date.now().toString(36);
 
@@ -61,15 +102,7 @@ function trackEvent(eventName, params) {
     fbq('trackCustom', eventName, params || {}, { eventID: eventId });
   }
 
-  // 2. Google Ads — dispara a mesma conversão configurada, se houver.
-  const tracking = window.RADAR_TRACKING || {};
-  const adsId = tracking.googleAdsId;
-  const adsLabel = tracking.googleAdsLabel;
-  if (typeof gtag === 'function' && adsId && adsLabel && adsId.indexOf('${') !== 0 && adsLabel.indexOf('${') !== 0) {
-    gtag('event', 'conversion', { send_to: `${adsId}/${adsLabel}`, ...(params || {}) });
-  }
-
-  // 3. CAPI (servidor) — vai pro tracking-api, que repassa pro Graph API.
+  // 2. CAPI (servidor) — vai pro tracking-api, que repassa pro Graph API.
   //    Se o endpoint não existir/estiver fora do ar, falha em silêncio.
   fetch('/api/tracking/meta-event', {
     method: 'POST',
@@ -97,15 +130,133 @@ const JOIN_EVENTS_BY_CATEGORY = {
   impressao3d: ['JoinGroup', 'JoinGroup3D'],
 };
 
-function trackGroupClick(url, category) {
-  const joinEvents = JOIN_EVENTS_BY_CATEGORY[category] || ['JoinGroup'];
-  joinEvents.forEach((eventName) => trackEvent(eventName, { category }));
+// Entrada no grupo: eventos de conversão da categoria + o do canal, e UMA
+// conversão no Google Ads. `channel` ('whatsapp' | 'telegram') vem explícito
+// do modal; nos botões diretos ele é deduzido pela URL.
+function trackGroupClick(url, category, channel) {
+  const ch =
+    channel ||
+    (/t\.me|telegram/i.test(url) ? 'telegram' : /wa\.me|whatsapp/i.test(url) ? 'whatsapp' : null);
+  const params = ch ? { category, channel: ch } : { category };
 
-  if (/t\.me|telegram/i.test(url)) {
-    trackEvent('CliqueTelegram', { category });
-  } else if (/wa\.me|whatsapp/i.test(url)) {
-    trackEvent('CliqueWhatsApp', { category });
+  const joinEvents = JOIN_EVENTS_BY_CATEGORY[category] || ['JoinGroup'];
+  joinEvents.forEach((eventName) => trackEvent(eventName, params));
+
+  if (ch === 'telegram') trackEvent('CliqueTelegram', params);
+  else if (ch === 'whatsapp') trackEvent('CliqueWhatsApp', params);
+
+  trackGoogleConversion(params);
+}
+
+// =====================================================================
+// Modal de escolha de canal (WhatsApp ou Telegram).
+//
+// Mesmo fluxo do /3d: o clique no botão só ABRE o modal (evento
+// CliqueGrupo); a entrada de verdade — JoinGroup + CliqueWhatsApp/
+// CliqueTelegram + conversão do Google — conta quando a pessoa escolhe o
+// canal. O modal é montado por aqui (nenhuma página precisa de markup).
+// =====================================================================
+const CHOICE_META = {
+  casa: { label: 'Casa & Eletrodomésticos', accent: 'green' },
+  informatica: { label: 'PC & Informática', accent: 'cyan' },
+  games: { label: 'Games PS5 & Xbox', accent: 'purple' },
+  impressao3d: { label: 'Impressão 3D', accent: 'orange' },
+};
+
+let channelModal = null;
+let channelCtx = null;
+
+function buildChannelModal() {
+  if (channelModal) return channelModal;
+
+  const el = document.createElement('div');
+  el.className = 'choice-modal';
+  el.hidden = true;
+  el.innerHTML = `
+    <div class="choice-backdrop" data-close></div>
+    <div class="choice-card" role="dialog" aria-modal="true" aria-labelledby="choice-title">
+      <button type="button" class="choice-close" aria-label="Fechar" data-close>&times;</button>
+      <p class="choice-eyebrow"><span class="choice-group"></span></p>
+      <h2 id="choice-title">Onde você quer entrar?</h2>
+      <p class="choice-sub">Escolha o app da sua preferência. O grupo é o mesmo e é grátis.</p>
+      <a class="choice-option choice-wa" data-via="whatsapp" target="_blank" rel="noopener noreferrer">
+        <span class="choice-ico" aria-hidden="true">💬</span>
+        <span class="choice-txt">Entrar pelo WhatsApp<small>Ofertas direto no seu WhatsApp</small></span>
+      </a>
+      <a class="choice-option choice-tg" data-via="telegram" target="_blank" rel="noopener noreferrer">
+        <span class="choice-ico" aria-hidden="true">✈️</span>
+        <span class="choice-txt">Entrar pelo Telegram<small>Ofertas direto no seu Telegram</small></span>
+      </a>
+      <p class="choice-micro">Sem cadastro • Entre e saia quando quiser</p>
+    </div>`;
+
+  el.addEventListener('click', (e) => {
+    if (e.target.closest('[data-close]')) {
+      closeChannelChoice();
+      return;
+    }
+    const opt = e.target.closest('a.choice-option');
+    if (opt && channelCtx) {
+      trackGroupClick(opt.href, channelCtx.category, opt.dataset.via);
+      // deixa o navegador abrir a nova aba antes de fechar o modal
+      setTimeout(closeChannelChoice, 0);
+    }
+  });
+
+  document.body.appendChild(el);
+  channelModal = el;
+  return el;
+}
+
+function onChannelModalKeydown(e) {
+  if (e.key === 'Escape') {
+    closeChannelChoice();
+    return;
   }
+  if (e.key !== 'Tab' || !channelModal) return;
+
+  // mantém o foco preso dentro do modal enquanto ele está aberto
+  const focusable = channelModal.querySelectorAll('a.choice-option, button.choice-close');
+  if (!focusable.length) return;
+  const first = focusable[0];
+  const last = focusable[focusable.length - 1];
+  if (e.shiftKey && document.activeElement === first) {
+    e.preventDefault();
+    last.focus();
+  } else if (!e.shiftKey && document.activeElement === last) {
+    e.preventDefault();
+    first.focus();
+  }
+}
+
+function openChannelChoice(category, urls, trigger) {
+  const el = buildChannelModal();
+  channelCtx = { category, trigger };
+
+  const meta = CHOICE_META[category] || { label: '', accent: 'cyan' };
+  el.setAttribute('data-accent', meta.accent);
+  el.querySelector('.choice-group').textContent = meta.label;
+  el.querySelector('.choice-wa').href = urls.whatsapp;
+  el.querySelector('.choice-tg').href = urls.telegram;
+
+  el.hidden = false;
+  document.documentElement.classList.add('choice-open');
+  document.addEventListener('keydown', onChannelModalKeydown);
+  el.querySelector('.choice-wa').focus();
+
+  // O clique só abriu o modal: ainda não é uma entrada no grupo.
+  trackEvent('CliqueGrupo', { category });
+}
+
+function closeChannelChoice() {
+  if (!channelModal || channelModal.hidden) return;
+  channelModal.hidden = true;
+  document.documentElement.classList.remove('choice-open');
+  document.removeEventListener('keydown', onChannelModalKeydown);
+  if (channelCtx && channelCtx.trigger && typeof channelCtx.trigger.focus === 'function') {
+    channelCtx.trigger.focus();
+  }
+  channelCtx = null;
 }
 
 // Radar de Ofertas — comportamento dos carrosséis de ofertas

@@ -12,6 +12,11 @@ services:
       LINK_INFORMATICA:   "${LINK_INFORMATICA}"
       LINK_GAMES:         "${LINK_GAMES}"
       LINK_IMPRESSAO3D:   "${LINK_IMPRESSAO3D}"
+      # Impressão 3D com os dois canais: com WhatsApp E Telegram preenchidos, o
+      # botão abre um modal pra pessoa escolher. Se só um estiver preenchido,
+      # vai direto nele; se nenhum, usa o LINK_IMPRESSAO3D acima.
+      LINK_IMPRESSAO3D_WHATSAPP: "${LINK_IMPRESSAO3D_WHATSAPP}"
+      LINK_IMPRESSAO3D_TELEGRAM: "${LINK_IMPRESSAO3D_TELEGRAM}"
       # Tracking (Meta Pixel / Google Ads) — deixe em branco pra desligar.
       META_PIXEL_ID:      "${META_PIXEL_ID}"
       GOOGLE_ADS_ID:      "${GOOGLE_ADS_ID}"

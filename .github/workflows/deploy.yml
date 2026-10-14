@@ -36,6 +36,25 @@ jobs:
         id: image
         run: echo "name=ghcr.io/${GITHUB_REPOSITORY,,}${{ matrix.image-suffix }}" >> "$GITHUB_OUTPUT"
 
+      # --- Checagens rápidas do site (só a imagem do site estático) --------
+      # Um erro de sintaxe no script.js quebraria TODOS os botões do site, e as
+      # páginas de nicho são geradas: esquecer de rodar o gerador depois de
+      # mexer no index.html deixaria elas desatualizadas.
+      - name: Check JS syntax
+        if: matrix.image-suffix == ''
+        run: |
+          node --check script.js
+          node --check niche.js
+          node --check config.template.js
+          node --check scripts/build-niches.js
+
+      - name: Check niche pages are up to date
+        if: matrix.image-suffix == ''
+        run: |
+          node scripts/build-niches.js
+          git diff --exit-code -- casa.html informatica.html games.html impressao-3d.html \
+            || { echo "As páginas de nicho estão desatualizadas: rode 'node scripts/build-niches.js' e commite."; exit 1; }
+
       # --- Teste de fumaça do site (só a imagem do site estático) ---------
       # Um nginx.conf quebrado derrubaria o site inteiro no próximo deploy.
       # Então, antes de publicar, builda a imagem, sobe o container e confere
@@ -57,6 +76,8 @@ jobs:
           docker run -d --name smoke -p 8080:80 \
             -e LINK_CASA=https://chat.whatsapp.com/smoketest \
             -e LINK_GAMES=https://t.me/smoketest \
+            -e LINK_IMPRESSAO3D_WHATSAPP=https://chat.whatsapp.com/smoke3d \
+            -e LINK_IMPRESSAO3D_TELEGRAM=https://t.me/smoke3d \
             radar-smoke:test
 
           for i in $(seq 1 30); do
@@ -99,6 +120,10 @@ jobs:
           # config.js foi gerado com as variáveis de ambiente e não fica em cache
           curl -s http://localhost:8080/config.js | grep -q 'chat.whatsapp.com/smoketest' || fail "config.js sem o LINK_CASA injetado"
           curl -sI http://localhost:8080/config.js | tr -d '\r' | grep -qi '^cache-control: no-cache' || fail "config.js sem Cache-Control: no-cache"
+
+          # os dois canais da Impressão 3D (modal WhatsApp/Telegram) chegam no config.js
+          curl -s http://localhost:8080/config.js | grep -q 'chat.whatsapp.com/smoke3d' || fail "config.js sem LINK_IMPRESSAO3D_WHATSAPP"
+          curl -s http://localhost:8080/config.js | grep -q 't.me/smoke3d' || fail "config.js sem LINK_IMPRESSAO3D_TELEGRAM"
 
           echo "Smoke test OK"
           docker rm -f smoke >/dev/null
