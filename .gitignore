@@ -1,5 +1,5 @@
 # Gerado em tempo de execução pelo container — nunca deve ser commitado
-config.js
+/config.js
 
 # Node (tracking-api)
 node_modules/
