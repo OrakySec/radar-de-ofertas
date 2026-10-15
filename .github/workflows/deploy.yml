@@ -60,22 +60,8 @@ jobs:
       # Um nginx.conf quebrado derrubaria o site inteiro no próximo deploy.
       # Então, antes de publicar, builda a imagem, sobe o container e confere
       # as rotas principais. Se falhar, o job para aqui e nada é publicado.
-      # --- tracking-api: testes automatizados (Telegram/Meta falsos) --------
-      # Rodam no Node 22, o mesmo da imagem (o banco usa o node:sqlite dele).
-      - name: Setup Node (tracking-api)
-        if: matrix.image-suffix == '-tracking'
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-
-      - name: Test tracking-api
-        if: matrix.image-suffix == '-tracking'
-        working-directory: tracking-api
-        run: |
-          npm ci
-          npm test
-
       - name: Build image for smoke test
+        if: matrix.image-suffix == ''
         uses: docker/build-push-action@v6
         with:
           context: ${{ matrix.context }}
@@ -141,45 +127,6 @@ jobs:
           curl -s http://localhost:8080/config.js | grep -q 't.me/smoke3d' || fail "config.js sem LINK_IMPRESSAO3D_TELEGRAM"
 
           echo "Smoke test OK"
-          docker rm -f smoke >/dev/null
-
-      # --- Teste de fumaça do tracking-api (container de verdade) -----------
-      - name: Smoke test (tracking-api)
-        if: matrix.image-suffix == '-tracking'
-        run: |
-          set -eu
-          fail() { echo "FALHOU: $1"; docker logs smoke 2>&1 | tail -30; exit 1; }
-
-          # 1) sem token do Telegram: sobe, responde o health e o link dá 503
-          docker run -d --name smoke -p 8080:3000 radar-smoke:test
-          for i in $(seq 1 30); do
-            curl -fs http://localhost:8080/api/tracking/health >/dev/null 2>&1 && break || sleep 1
-          done
-          health=$(curl -s http://localhost:8080/api/tracking/health)
-          echo "$health"
-          echo "$health" | grep -q '"ok":true' || fail "health sem ok"
-          code=$(curl -s -o /dev/null -w '%{http_code}' -X POST -H 'content-type: application/json' \
-            -d '{"category":"impressao3d"}' http://localhost:8080/api/tracking/telegram-link)
-          [ "$code" = "503" ] || fail "telegram-link sem bot -> $code (esperado 503)"
-          docker rm -f smoke >/dev/null
-
-          # 2) com o bot ligado: o container (usuário "node") consegue criar o banco
-          #    SQLite no volume /data. A API do Telegram aponta pra um endereço
-          #    que não existe: o bot só tenta de novo em segundo plano.
-          docker run -d --name smoke -p 8080:3000 \
-            -e TELEGRAM_BOT_TOKEN=x -e TELEGRAM_CHATS=impressao3d:-1001 \
-            -e TELEGRAM_API_BASE=http://127.0.0.1:9 radar-smoke:test
-          for i in $(seq 1 30); do
-            curl -fs http://localhost:8080/api/tracking/health >/dev/null 2>&1 && break || sleep 1
-          done
-          health=$(curl -s http://localhost:8080/api/tracking/health)
-          echo "$health"
-          echo "$health" | grep -q '"bot":true' || fail "bot não ligou"
-          echo "$health" | grep -q '"links":true' || fail "links do Telegram não ligaram"
-          docker exec smoke ls -l /data/radar.db >/dev/null || fail "banco /data/radar.db não foi criado"
-          [ "$(docker inspect -f '{{.State.Running}}' smoke)" = "true" ] || fail "container caiu"
-
-          echo "Smoke test (tracking-api) OK"
           docker rm -f smoke >/dev/null
 
       - name: Build and push image

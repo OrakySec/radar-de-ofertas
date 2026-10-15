@@ -133,11 +133,11 @@ const JOIN_EVENTS_BY_CATEGORY = {
 // Entrada no grupo: eventos de conversão da categoria + o do canal, e UMA
 // conversão no Google Ads. `channel` ('whatsapp' | 'telegram') vem explícito
 // do modal; nos botões diretos ele é deduzido pela URL.
-function trackGroupClick(url, category, channel, extra) {
+function trackGroupClick(url, category, channel) {
   const ch =
     channel ||
     (/t\.me|telegram/i.test(url) ? 'telegram' : /wa\.me|whatsapp/i.test(url) ? 'whatsapp' : null);
-  const params = { category, ...(ch && { channel: ch }), ...(extra || {}) };
+  const params = ch ? { category, channel: ch } : { category };
 
   const joinEvents = JOIN_EVENTS_BY_CATEGORY[category] || ['JoinGroup'];
   joinEvents.forEach((eventName) => trackEvent(eventName, params));
@@ -197,10 +197,7 @@ function buildChannelModal() {
     }
     const opt = e.target.closest('a.choice-option');
     if (opt && channelCtx) {
-      // link_type: o Telegram foi pelo link ÚNICO (entrada rastreada pelo bot)
-      // ou pelo link fixo de fallback?
-      const extra = opt.dataset.via === 'telegram' ? { link_type: opt.dataset.unique ? 'unique' : 'static' } : null;
-      trackGroupClick(opt.href, channelCtx.category, opt.dataset.via, extra);
+      trackGroupClick(opt.href, channelCtx.category, opt.dataset.via);
       // deixa o navegador abrir a nova aba antes de fechar o modal
       setTimeout(closeChannelChoice, 0);
     }
@@ -232,61 +229,15 @@ function onChannelModalKeydown(e) {
   }
 }
 
-// Link de convite ÚNICO do Telegram pra esta visita (gerado pelo tracking-api).
-// Com ele o bot sabe de qual clique/anúncio cada pessoa que entrou veio.
-// Pedido uma vez por categoria; se der qualquer erro, devolve null e o botão
-// fica com o link fixo configurado no Portainer (nunca quebra o fluxo).
-const telegramLinkCache = {};
-
-function getTelegramUniqueLink(category) {
-  if (telegramLinkCache[category]) return telegramLinkCache[category];
-
-  const q = new URLSearchParams(window.location.search);
-  telegramLinkCache[category] = fetch('/api/tracking/telegram-link', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      category,
-      fbc: getFbc(),
-      fbp: getCookie('_fbp'),
-      sourceUrl: window.location.href,
-      gclid: q.get('gclid'),
-      utm_source: q.get('utm_source'),
-      utm_medium: q.get('utm_medium'),
-      utm_campaign: q.get('utm_campaign'),
-      utm_content: q.get('utm_content'),
-    }),
-  })
-    .then((r) => (r.ok ? r.json() : null))
-    .then((d) => (d && typeof d.url === 'string' && d.url.startsWith('https://t.me/') ? d.url : null))
-    .catch(() => null)
-    .then((url) => {
-      if (!url) delete telegramLinkCache[category]; // tenta de novo na próxima abertura
-      return url;
-    });
-  return telegramLinkCache[category];
-}
-
 function openChannelChoice(category, urls, trigger) {
   const el = buildChannelModal();
   channelCtx = { category, trigger };
 
   const meta = CHOICE_META[category] || { label: '', accent: 'cyan' };
   el.setAttribute('data-accent', meta.accent);
-  el.setAttribute('data-category', category);
   el.querySelector('.choice-group').textContent = meta.label;
   el.querySelector('.choice-wa').href = urls.whatsapp;
-
-  const tgLink = el.querySelector('.choice-tg');
-  tgLink.href = urls.telegram; // link fixo: já funciona enquanto o único não chega
-  delete tgLink.dataset.unique;
-  getTelegramUniqueLink(category).then((url) => {
-    // só aplica se o modal ainda é desta categoria (evita resposta atrasada de outra)
-    if (url && el.getAttribute('data-category') === category) {
-      tgLink.href = url;
-      tgLink.dataset.unique = '1';
-    }
-  });
+  el.querySelector('.choice-tg').href = urls.telegram;
 
   el.hidden = false;
   document.documentElement.classList.add('choice-open');

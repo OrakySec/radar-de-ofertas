@@ -52,17 +52,6 @@ services:
       # nunca reutilize o token de outro pixel/projeto.
       META_PIXEL_ID:    "${META_PIXEL_ID}"
       META_CAPI_TOKEN:  "${META_CAPI_TOKEN}"
-      # Só pra validar: manda os eventos como "de teste" (aba Eventos de teste
-      # do Events Manager). Deixe vazio em produção, senão não contam de verdade.
-      META_TEST_EVENT_CODE: "${META_TEST_EVENT_CODE}"
-      # Bot do Telegram (conta as entradas dos grupos) — passo-a-passo em
-      # tracking-api/README.md. Sem TELEGRAM_BOT_TOKEN o bot fica desligado.
-      TELEGRAM_BOT_TOKEN: "${TELEGRAM_BOT_TOKEN}"
-      TELEGRAM_CHATS:     "${TELEGRAM_CHATS}"
-      TELEGRAM_ADMIN_IDS: "${TELEGRAM_ADMIN_IDS}"
-    volumes:
-      # Banco do bot (SQLite). Sem o volume o histórico some a cada redeploy.
-      - radarofertas_tracking_data:/data
     networks:
       - YkaroNET
     deploy:
@@ -71,10 +60,6 @@ services:
         condition: on-failure
         delay: 5s
         max_attempts: 3
-      # O volume é local: precisa rodar sempre no mesmo nó (igual aos outros projetos).
-      placement:
-        constraints:
-          - node.role == manager
       labels:
         - "traefik.enable=true"
         - "traefik.docker.network=YkaroNET"
@@ -90,6 +75,3 @@ services:
 networks:
   YkaroNET:
     external: true
-
-volumes:
-  radarofertas_tracking_data:
