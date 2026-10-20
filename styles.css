@@ -733,8 +733,9 @@ html.choice-open{ overflow: hidden; }
   height: 42px;
   border-radius: 50%;
   background: rgba(255,255,255,.2);
-  font-size: 1.3rem;
+  color: #fff;
 }
+.choice-ico svg{ display: block; }
 .choice-txt small{
   display: block;
   margin-top: .1rem;
