@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Radar de Ofertas — Impressão 3D, Informática, Casa e Games</title>
-<meta name="description" content="Ofertas selecionadas todo dia, direto no seu grupo: impressão 3D, peças de PC, casa e eletrodomésticos, e jogos de PS5/Xbox.">
+<title>Radar de Ofertas — Casa, Informática, Games, Impressão 3D e Achadinhos</title>
+<meta name="description" content="Ofertas selecionadas todo dia, direto no seu grupo: impressão 3D, peças de PC, casa e eletrodomésticos, jogos de PS5/Xbox e achadinhos.">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" href="favicon-32x32.png" sizes="32x32" type="image/png">
@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=6">
+<link rel="stylesheet" href="styles.css?v=7">
 
 <!-- Gerado a partir de config.template.js no start do container (Docker),
      com IDs de tracking e links dos grupos vindos de variável de ambiente.
@@ -81,6 +81,7 @@
     <a href="#informatica"><span class="dot dot-cyan"></span>PC &amp; Informática</a>
     <a href="#games"><span class="dot dot-purple"></span>Games PS5/Xbox</a>
     <a href="#impressao-3d"><span class="dot dot-orange"></span>Impressão 3D</a>
+    <a href="#achadinhos"><span class="dot dot-pink"></span>Achadinhos</a>
   </nav>
 </header>
 
@@ -98,7 +99,7 @@
       </p>
 
       <div class="hero-stats">
-        <div><strong>4</strong><span>grupos ativos</span></div>
+        <div><strong>5</strong><span>grupos ativos</span></div>
         <div><strong>100%</strong><span>grátis, sempre</span></div>
         <div><strong>+1000</strong><span>ofertas por mês</span></div>
       </div>
@@ -143,6 +144,16 @@
           </span>
           <h3>Impressão 3D</h3>
           <p>Impressoras, filamentos e peças de reposição</p>
+          <span class="picker-cta">Ver ofertas <span class="arrow">→</span></span>
+        </a>
+
+        <a href="#achadinhos" class="picker-card" data-accent="pink">
+          <span class="picker-top">
+            <span class="picker-icon">🛍️</span>
+            <span class="picker-tag">● ativo agora</span>
+          </span>
+          <h3>Achadinhos</h3>
+          <p>Produtos virais e úteis com preço baixo</p>
           <span class="picker-cta">Ver ofertas <span class="arrow">→</span></span>
         </a>
 
@@ -446,6 +457,80 @@
     </div>
   </section>
 
+  <!-- ===================== ACHADINHOS ===================== -->
+  <section id="achadinhos" class="category-section" data-accent="pink">
+    <div class="category-hero">
+      <div class="category-kicker">
+        <span class="category-icon">🛍️</span>
+        <p class="eyebrow">ACHADINHOS</p>
+      </div>
+      <h2>Achadinhos que valem cada centavo</h2>
+      <p class="category-desc">Os produtos virais e úteis que todo mundo quer, com preço baixo: utilidades, gadgets, organização e decoração, garimpados todo dia.</p>
+      <!-- TODO: trocar # pelo link real do grupo (WhatsApp ou Telegram) -->
+      <a href="#" class="cta-button">Entrar no grupo de Achadinhos →</a>
+      <p class="vagas-counter" data-category="achadinhos">⚡ Restam <strong class="vagas-num">--</strong> vagas hoje</p>
+    </div>
+
+    <div class="offers-wrap">
+      <div class="offers-head">
+        <h3>Ofertas recentes</h3>
+        <button class="carousel-btn prev" aria-label="Anterior">‹</button>
+        <button class="carousel-btn next" aria-label="Próximo">›</button>
+      </div>
+      <div class="carousel">
+        <article class="offer-card">
+          <div class="offer-thumb"><img src="assets/products/mini-liquidificador.jpg" alt="Mini liquidificador portátil recarregável USB" loading="lazy"><span class="badge">57% OFF</span></div>
+          <h4>Mini Liquidificador Portátil Recarregável</h4>
+          <p class="offer-meta">Shopee · há 18 min</p>
+          <p class="price"><s>R$ 69,90</s> <strong>R$ 29,90</strong></p>
+          <a href="#" class="offer-cta">Entrar no grupo</a>
+        </article>
+        <article class="offer-card">
+          <div class="offer-thumb"><img src="assets/products/escova-eletrica.jpg" alt="Escova elétrica de limpeza giratória sem fio" loading="lazy"><span class="badge">58% OFF</span></div>
+          <h4>Escova Elétrica de Limpeza 9 em 1 Sem Fio</h4>
+          <p class="offer-meta">Amazon · há 45 min</p>
+          <p class="price"><s>R$ 129,90</s> <strong>R$ 54,90</strong></p>
+          <a href="#" class="offer-cta">Entrar no grupo</a>
+        </article>
+        <article class="offer-card">
+          <div class="offer-thumb"><img src="assets/products/ventilador-pescoco.jpg" alt="Ventilador de pescoço portátil recarregável" loading="lazy"><span class="badge">64% OFF</span></div>
+          <h4>Ventilador de Pescoço Portátil Sem Hélice</h4>
+          <p class="offer-meta">Shopee · há 1h</p>
+          <p class="price"><s>R$ 49,90</s> <strong>R$ 17,90</strong></p>
+          <a href="#" class="offer-cta">Entrar no grupo</a>
+        </article>
+        <article class="offer-card">
+          <div class="offer-thumb"><img src="assets/products/fita-led-rgb.jpg" alt="Fita LED RGB com controle remoto" loading="lazy"><span class="badge">67% OFF</span></div>
+          <h4>Fita LED RGB 5m com Controle Remoto</h4>
+          <p class="offer-meta">Mercado Livre · há 25 min</p>
+          <p class="price"><s>R$ 89,90</s> <strong>R$ 29,90</strong></p>
+          <a href="#" class="offer-cta">Entrar no grupo</a>
+        </article>
+        <article class="offer-card">
+          <div class="offer-thumb"><img src="assets/products/projetor-galaxia.jpg" alt="Luminária projetor galáxia astronauta com controle" loading="lazy"><span class="badge">67% OFF</span></div>
+          <h4>Luminária Projetor Astronauta Galáxia</h4>
+          <p class="offer-meta">Shopee · há 2h</p>
+          <p class="price"><s>R$ 119,90</s> <strong>R$ 39,90</strong></p>
+          <a href="#" class="offer-cta">Entrar no grupo</a>
+        </article>
+        <article class="offer-card">
+          <div class="offer-thumb"><img src="assets/products/organizador-geladeira.jpg" alt="Kit de potes organizadores de geladeira com tampa" loading="lazy"><span class="badge">64% OFF</span></div>
+          <h4>Kit 6 Potes Organizadores de Geladeira</h4>
+          <p class="offer-meta">Amazon · há 1h30</p>
+          <p class="price"><s>R$ 139,90</s> <strong>R$ 49,90</strong></p>
+          <a href="#" class="offer-cta">Entrar no grupo</a>
+        </article>
+        <article class="offer-card">
+          <div class="offer-thumb"><img src="assets/products/mini-massageador.jpg" alt="Mini pistola massageadora muscular com ponteiras" loading="lazy"><span class="badge">69% OFF</span></div>
+          <h4>Mini Pistola Massageadora Muscular</h4>
+          <p class="offer-meta">Mercado Livre · há 3h</p>
+          <p class="price"><s>R$ 79,90</s> <strong>R$ 24,90</strong></p>
+          <a href="#" class="offer-cta">Entrar no grupo</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
   <!-- ===================== FAQ ===================== -->
   <section id="faq" class="faq">
     <h2>Perguntas rápidas</h2>
@@ -487,6 +572,7 @@
     <a href="#informatica">PC &amp; Informática</a>
     <a href="#games">Games</a>
     <a href="#impressao-3d">Impressão 3D</a>
+    <a href="#achadinhos">Achadinhos</a>
   </div>
   <p class="disclaimer">Este site é independente e não possui vínculo com as marcas ou lojas citadas nas ofertas.</p>
 </footer>

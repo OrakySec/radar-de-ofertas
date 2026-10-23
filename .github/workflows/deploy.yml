@@ -53,7 +53,7 @@ jobs:
         if: matrix.image-suffix == ''
         run: |
           node scripts/build-niches.js
-          git diff --exit-code -- casa.html informatica.html games.html impressao-3d.html \
+          git diff --exit-code -- casa.html informatica.html games.html impressao-3d.html achadinhos.html \
             || { echo "As páginas de nicho estão desatualizadas: rode 'node scripts/build-niches.js' e commite."; exit 1; }
 
       # --- Teste de fumaça do site (só a imagem do site estático) ---------
@@ -77,6 +77,7 @@ jobs:
           docker run -d --name smoke -p 8080:80 \
             -e LINK_CASA=https://chat.whatsapp.com/smoketest \
             -e LINK_GAMES=https://t.me/smoketest \
+            -e LINK_ACHADINHOS=https://chat.whatsapp.com/smokeachados \
             -e LINK_IMPRESSAO3D_WHATSAPP=https://chat.whatsapp.com/smoke3d \
             -e LINK_IMPRESSAO3D_TELEGRAM=https://t.me/smoke3d \
             radar-smoke:test
@@ -99,6 +100,7 @@ jobs:
           expect /informatica               200
           expect /games                     200
           expect /impressao-3d              200
+          expect /achadinhos                200
           expect "/casa?gclid=abc"          200
           expect /favicon.svg               200
           expect /favicon.ico               200
@@ -117,6 +119,7 @@ jobs:
           # cada página de nicho carrega o nicho certo
           curl -s http://localhost:8080/casa         | grep -q "RADAR_NICHE = 'casa'"         || fail "/casa sem RADAR_NICHE"
           curl -s http://localhost:8080/impressao-3d | grep -q "RADAR_NICHE = 'impressao-3d'" || fail "/impressao-3d sem RADAR_NICHE"
+          curl -s http://localhost:8080/achadinhos   | grep -q "RADAR_NICHE = 'achadinhos'"   || fail "/achadinhos sem RADAR_NICHE"
 
           # config.js foi gerado com as variáveis de ambiente e não fica em cache
           curl -s http://localhost:8080/config.js | grep -q 'chat.whatsapp.com/smoketest' || fail "config.js sem o LINK_CASA injetado"
@@ -125,6 +128,9 @@ jobs:
           # os dois canais da Impressão 3D (modal WhatsApp/Telegram) chegam no config.js
           curl -s http://localhost:8080/config.js | grep -q 'chat.whatsapp.com/smoke3d' || fail "config.js sem LINK_IMPRESSAO3D_WHATSAPP"
           curl -s http://localhost:8080/config.js | grep -q 't.me/smoke3d' || fail "config.js sem LINK_IMPRESSAO3D_TELEGRAM"
+
+          # o link do grupo de Achadinhos chega no config.js
+          curl -s http://localhost:8080/config.js | grep -q 'chat.whatsapp.com/smokeachados' || fail "config.js sem LINK_ACHADINHOS"
 
           echo "Smoke test OK"
           docker rm -f smoke >/dev/null

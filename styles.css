@@ -1,7 +1,7 @@
 /* =====================================================
    RADAR DE OFERTAS — estilos
    Paleta base (dark) + cor de destaque por categoria via
-   [data-accent="orange|cyan|green|purple"]
+   [data-accent="orange|cyan|green|purple|pink"]
    ===================================================== */
 
 :root{
@@ -22,6 +22,7 @@
   --cyan:   #22d3ee; --cyan-dk:   #0ea1c9; --cyan-soft:   rgba(34,211,238,.14);
   --green:  #34d399; --green-dk:  #0fa972; --green-soft:  rgba(52,211,153,.14);
   --purple: #b57bff; --purple-dk: #8536ff; --purple-soft: rgba(181,123,255,.14);
+  --pink:   #ff5fa2; --pink-dk:   #e0287a; --pink-soft:   rgba(255,95,162,.14);
 }
 
 *{ box-sizing: border-box; }
@@ -54,12 +55,14 @@ p{ margin: 0; }
 [data-accent="cyan"]{ --accent-color: var(--cyan); --accent-dark: var(--cyan-dk); --accent-soft: var(--cyan-soft); }
 [data-accent="green"]{ --accent-color: var(--green); --accent-dark: var(--green-dk); --accent-soft: var(--green-soft); }
 [data-accent="purple"]{ --accent-color: var(--purple); --accent-dark: var(--purple-dk); --accent-soft: var(--purple-soft); }
+[data-accent="pink"]{ --accent-color: var(--pink); --accent-dark: var(--pink-dk); --accent-soft: var(--pink-soft); }
 
 .dot{ display:inline-block; width:8px; height:8px; border-radius:50%; margin-right:.45rem; }
 .dot-orange{ background: var(--orange); box-shadow: 0 0 8px var(--orange); }
 .dot-cyan{ background: var(--cyan); box-shadow: 0 0 8px var(--cyan); }
 .dot-green{ background: var(--green); box-shadow: 0 0 8px var(--green); }
 .dot-purple{ background: var(--purple); box-shadow: 0 0 8px var(--purple); }
+.dot-pink{ background: var(--pink); box-shadow: 0 0 8px var(--pink); }
 
 /* ---------- header ---------- */
 .site-header{
@@ -210,15 +213,22 @@ p{ margin: 0; }
 /* ---------- picker grid ---------- */
 .picker-grid{
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   gap: 1.1rem;
   text-align: left;
 }
+.picker-grid .picker-card{ grid-column: span 2; }
+.picker-grid .picker-card:nth-child(n+4){ grid-column: span 3; }
 @media (max-width: 900px){
   .picker-grid{ grid-template-columns: repeat(2, 1fr); }
+  .picker-grid .picker-card,
+  .picker-grid .picker-card:nth-child(n+4){ grid-column: auto; }
+  /* número ímpar de cards: o último ocupa a linha toda em vez de sobrar sozinho */
+  .picker-grid .picker-card:last-child:nth-child(odd){ grid-column: 1 / -1; }
 }
 @media (max-width: 560px){
   .picker-grid{ grid-template-columns: 1fr; }
+  .picker-grid .picker-card:last-child:nth-child(odd){ grid-column: auto; }
 }
 
 .picker-card{

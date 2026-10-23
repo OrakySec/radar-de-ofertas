@@ -12,6 +12,7 @@ services:
       LINK_INFORMATICA:   "${LINK_INFORMATICA}"
       LINK_GAMES:         "${LINK_GAMES}"
       LINK_IMPRESSAO3D:   "${LINK_IMPRESSAO3D}"
+      LINK_ACHADINHOS:    "${LINK_ACHADINHOS}"
       # Impressão 3D com os dois canais: com WhatsApp E Telegram preenchidos, o
       # botão abre um modal pra pessoa escolher. Se só um estiver preenchido,
       # vai direto nele; se nenhum, usa o LINK_IMPRESSAO3D acima.

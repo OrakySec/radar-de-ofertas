@@ -6,10 +6,10 @@
 FROM nginx:alpine
 
 # Site estático: página principal + páginas de nicho (geradas por
-# scripts/build-niches.js: /casa, /informatica, /games, /impressao-3d)
+# scripts/build-niches.js: /casa, /informatica, /games, /impressao-3d, /achadinhos)
 COPY index.html styles.css script.js config.template.js /usr/share/nginx/html/
 COPY niche.css niche.js /usr/share/nginx/html/
-COPY casa.html informatica.html games.html impressao-3d.html /usr/share/nginx/html/
+COPY casa.html informatica.html games.html impressao-3d.html achadinhos.html /usr/share/nginx/html/
 COPY favicon.svg favicon.ico favicon-16x16.png favicon-32x32.png apple-touch-icon.png /usr/share/nginx/html/
 COPY assets /usr/share/nginx/html/assets
 

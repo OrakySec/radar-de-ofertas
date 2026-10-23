@@ -19,6 +19,7 @@
     informatica: 'informatica',
     games: 'games',
     'impressao-3d': 'impressao3d',
+    achadinhos: 'achadinhos',
   };
 
   // placeholder não preenchido (env var vazia) ou template não processado
@@ -128,6 +129,7 @@ const JOIN_EVENTS_BY_CATEGORY = {
   informatica: ['JoinGroupInformatica'],
   games: ['JoinGroupGames'],
   impressao3d: ['JoinGroup', 'JoinGroup3D'],
+  achadinhos: ['JoinGroupAchadinhos'],
 };
 
 // Entrada no grupo: eventos de conversão da categoria + o do canal, e UMA
@@ -161,6 +163,7 @@ const CHOICE_META = {
   informatica: { label: 'PC & Informática', accent: 'cyan' },
   games: { label: 'Games PS5 & Xbox', accent: 'purple' },
   impressao3d: { label: 'Impressão 3D', accent: 'orange' },
+  achadinhos: { label: 'Achadinhos', accent: 'pink' },
 };
 
 let channelModal = null;
@@ -295,6 +298,7 @@ document.querySelectorAll('.offers-wrap').forEach((wrap) => {
     { id: 'informatica',  label: 'PC & Informática',        accentVar: '--cyan'   },
     { id: 'games',        label: 'Games PS5 & Xbox',        accentVar: '--purple' },
     { id: 'impressao-3d', label: 'Impressão 3D',            accentVar: '--orange' },
+    { id: 'achadinhos',   label: 'Achadinhos',              accentVar: '--pink'   },
   ];
 
   const NAMES = [
