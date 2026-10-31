@@ -6,7 +6,8 @@ window.RADAR_LINKS = {
   informatica: "${LINK_INFORMATICA}",
   games: "${LINK_GAMES}",
   impressao3d: "${LINK_IMPRESSAO3D}",
-  achadinhos: "${LINK_ACHADINHOS}"
+  achadinhos: "${LINK_ACHADINHOS}",
+  motocross: "${LINK_MOTOCROSS}"
 };
 
 // Categorias com os DOIS canais (hoje só a Impressão 3D): com WhatsApp e

@@ -2,9 +2,9 @@
 /**
  * Gera as páginas de nicho (uma por grupo) a partir do index.html:
  *
- *   casa.html  informatica.html  games.html  impressao-3d.html  achadinhos.html
+ *   casa.html  informatica.html  games.html  impressao-3d.html  achadinhos.html  motocross.html
  *
- * Servidas como /casa, /informatica, /games, /impressao-3d e /achadinhos (ver
+ * Servidas como /casa, /informatica, /games, /impressao-3d, /achadinhos e /motocross (ver
  * docker/nginx.conf). Pensadas pra receber o tráfego dos anúncios de
  * cada nicho, sem a distração dos outros grupos.
  *
@@ -141,6 +141,28 @@ const NICHES = [
       'Utilidades, gadgets, itens de organização, cozinha, decoração, limpeza e produtos virais — sempre com preço baixo.',
     finalTitle: 'Bora garimpar achadinhos todo dia?',
   },
+  {
+    id: 'motocross',
+    accent: 'yellow',
+    icon: '🏍️',
+    name: 'Motocross',
+    short: 'Motocross',
+    title: 'Grupo de Ofertas de Motocross, Peças e Acessórios | Radar de Ofertas',
+    metaDesc:
+      'Entre grátis no grupo de ofertas de Motocross: capacetes, equipamentos de proteção, peças e acessórios pra trilha com desconto, todo dia no seu celular.',
+    h1: 'Ofertas de Motocross, peças e acessórios',
+    sub: 'Capacetes, óculos, luvas, proteção, peças e acessórios pra trilha e motocross com os melhores preços. Entre grátis no grupo e receba as promoções todo dia — sem enrolação e sem spam.',
+    cta: 'Entrar no grupo de Motocross →',
+    chips: [
+      'Capacetes de motocross', 'Óculos e luvas', 'Coletes e protetores',
+      'Joelheiras e cotoveleiras', 'Kits de relação', 'Pneus e câmaras',
+      'Protetores de mão', 'Peças e acessórios de trilha',
+    ],
+    step2: 'As promoções de motocross chegam direto no seu',
+    faqTypes:
+      'Capacetes, óculos, luvas, coletes, joelheiras, kits de relação, pneus, protetores de mão, peças e acessórios pra trilha e motocross — sempre com desconto.',
+    finalTitle: 'Bora equipar a moto gastando menos?',
+  },
 ];
 
 // ---------------------------------------------------------------------
@@ -220,7 +242,7 @@ function renderPage(n) {
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/styles.css?v=7">
+<link rel="stylesheet" href="/styles.css?v=8">
 <link rel="stylesheet" href="/niche.css?v=1">
 
 <!-- Diz pro script.js qual é o nicho desta página: os pop-ups de "entrou no
@@ -365,7 +387,7 @@ ${cards}
       </div>
       <div class="faq-item">
         <h4>Posso entrar nos outros grupos também?</h4>
-        <p>Pode sim! Temos grupos de Casa, Informática, Games, Impressão 3D e Achadinhos — <a class="text-link" href="/">veja todos</a>.</p>
+        <p>Pode sim! Temos grupos de Casa, Informática, Games, Impressão 3D, Achadinhos e Motocross — <a class="text-link" href="/">veja todos</a>.</p>
       </div>
     </div>
   </section>
@@ -392,7 +414,7 @@ ${cards}
 <!-- Pop-ups de "fulano entrou no grupo agora" -->
 <div id="toast-root" class="toast-root" aria-live="polite" aria-atomic="true"></div>
 
-<script src="/script.js?v=9"></script>
+<script src="/script.js?v=10"></script>
 <script src="/niche.js?v=2"></script>
 </body>
 </html>

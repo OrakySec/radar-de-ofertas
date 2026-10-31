@@ -20,6 +20,7 @@
     games: 'games',
     'impressao-3d': 'impressao3d',
     achadinhos: 'achadinhos',
+    motocross: 'motocross',
   };
 
   // placeholder não preenchido (env var vazia) ou template não processado
@@ -130,6 +131,7 @@ const JOIN_EVENTS_BY_CATEGORY = {
   games: ['JoinGroupGames'],
   impressao3d: ['JoinGroup', 'JoinGroup3D'],
   achadinhos: ['JoinGroupAchadinhos'],
+  motocross: ['JoinGroupMotocross'],
 };
 
 // Entrada no grupo: eventos de conversão da categoria + o do canal, e UMA
@@ -164,6 +166,7 @@ const CHOICE_META = {
   games: { label: 'Games PS5 & Xbox', accent: 'purple' },
   impressao3d: { label: 'Impressão 3D', accent: 'orange' },
   achadinhos: { label: 'Achadinhos', accent: 'pink' },
+  motocross: { label: 'Motocross', accent: 'yellow' },
 };
 
 let channelModal = null;
@@ -299,6 +302,7 @@ document.querySelectorAll('.offers-wrap').forEach((wrap) => {
     { id: 'games',        label: 'Games PS5 & Xbox',        accentVar: '--purple' },
     { id: 'impressao-3d', label: 'Impressão 3D',            accentVar: '--orange' },
     { id: 'achadinhos',   label: 'Achadinhos',              accentVar: '--pink'   },
+    { id: 'motocross',    label: 'Motocross',               accentVar: '--yellow' },
   ];
 
   const NAMES = [
