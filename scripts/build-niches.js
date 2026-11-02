@@ -44,8 +44,8 @@ const NICHES = [
     title: 'Grupo de Ofertas de Casa e Eletrodomésticos | Radar de Ofertas',
     metaDesc:
       'Entre grátis no grupo de ofertas de Casa e Eletrodomésticos: air fryer, Smart TV, aspirador robô e muito mais com desconto, todo dia no seu celular.',
-    h1: 'Ofertas de Casa e Eletrodomésticos',
-    sub: 'Air fryer, Smart TV, aspirador robô, cafeteira e muito mais. Entre grátis no grupo e receba as melhores promoções todo dia — sem enrolação e sem spam.',
+    topic: 'Casa e Eletrodomésticos',
+    sub: 'Air fryer, Smart TV, aspirador robô e muito mais — as melhores promoções do dia, grátis no seu celular.',
     cta: 'Entrar no grupo de Casa &amp; Eletro →',
     chips: [
       'Smart TVs', 'Air fryers', 'Aspiradores robô', 'Cafeteiras',
@@ -65,8 +65,8 @@ const NICHES = [
     title: 'Grupo de Ofertas de PC e Informática | Radar de Ofertas',
     metaDesc:
       'Entre grátis no grupo de ofertas de PC e Informática: placa de vídeo, processador, SSD, monitor e periféricos com desconto, todo dia no seu celular.',
-    h1: 'Ofertas de PC e Informática',
-    sub: 'Placa de vídeo, processador, SSD, monitor, teclado e muito mais. Entre grátis no grupo e receba as melhores promoções de hardware todo dia — sem enrolação e sem spam.',
+    topic: 'PC e Informática',
+    sub: 'Placa de vídeo, processador, SSD, monitor e periféricos — as melhores promoções do dia, grátis no seu celular.',
     cta: 'Entrar no grupo de Informática →',
     chips: [
       'Placas de vídeo', 'Processadores', 'SSDs e HDs', 'Memórias RAM',
@@ -86,8 +86,8 @@ const NICHES = [
     title: 'Grupo de Ofertas de Games PS5 e Xbox | Radar de Ofertas',
     metaDesc:
       'Entre grátis no grupo de promoções de Games PS5 e Xbox: jogos, controles, headsets e acessórios com desconto, todo dia no seu celular.',
-    h1: 'Promoções de Games PS5 e Xbox',
-    sub: 'Jogos, controles, headsets e acessórios com desconto de verdade. Entre grátis no grupo e receba as melhores promoções todo dia — sem enrolação e sem spam.',
+    topic: 'Games PS5 e Xbox',
+    sub: 'Jogos, controles, headsets e acessórios — as melhores promoções do dia, grátis no seu celular.',
     cta: 'Entrar no grupo de Games →',
     chips: [
       'Jogos de PS5', 'Jogos de Xbox', 'Controles', 'Headsets',
@@ -107,8 +107,8 @@ const NICHES = [
     title: 'Grupo de Ofertas de Impressão 3D | Radar de Ofertas',
     metaDesc:
       'Entre grátis no grupo de ofertas de Impressão 3D: impressoras, filamentos, resina e acessórios com desconto, todo dia no seu celular.',
-    h1: 'Ofertas de Impressão 3D',
-    sub: 'Impressoras, filamentos, resina e acessórios com os melhores preços. Entre grátis no grupo e receba as promoções todo dia — sem enrolação e sem spam.',
+    topic: 'Impressão 3D',
+    sub: 'Impressoras, filamentos, resina e peças — as melhores promoções do dia, grátis no seu celular.',
     cta: 'Entrar no grupo de Impressão 3D →',
     chips: [
       'Impressoras 3D FDM', 'Impressoras de resina', 'Filamentos PLA e PETG',
@@ -128,8 +128,8 @@ const NICHES = [
     title: 'Grupo de Achadinhos e Ofertas Virais | Radar de Ofertas',
     metaDesc:
       'Entre grátis no grupo de Achadinhos: produtos virais, úteis e baratos de utilidades, gadgets, organização e decoração, todo dia no seu celular.',
-    h1: 'Achadinhos com preço de promoção',
-    sub: 'Os produtos virais e úteis que todo mundo quer, com preço baixo: utilidades, gadgets, organização e decoração. Entre grátis no grupo e receba os melhores achados todo dia — sem enrolação e sem spam.',
+    topic: 'achadinhos virais',
+    sub: 'Utilidades, gadgets, organização e decoração — os melhores achados do dia, grátis no seu celular.',
     cta: 'Entrar no grupo de Achadinhos →',
     chips: [
       'Utilidades domésticas', 'Gadgets e eletrônicos baratos', 'Organização da casa',
@@ -144,14 +144,14 @@ const NICHES = [
   {
     id: 'motocross',
     accent: 'yellow',
-    icon: '🏍️',
+    icon: '<svg class="moto-svg" viewBox="0 0 48 48" fill="currentColor" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="34" r="7.2" stroke-width="2.4"/><circle cx="39" cy="34" r="7.2" stroke-width="2.4"/><path d="M39 34 L34 13" stroke-width="2.4"/><path d="M30.5 11.5 L37.5 12.5" stroke-width="2.8"/><path d="M32.5 26.5 Q40 21 46 27.5" stroke-width="2.2"/><path d="M9 34 L20 31.5" stroke-width="2.4"/></g><path d="M2.5 19.5 L18 23.5 L24.5 21 L30 17 L33 19.5 L28 26 L19 27 L8 24.5 Z"/><path d="M17.5 28.5 L27 28.5 L28.5 34.5 L19 36 Z"/><circle cx="9" cy="34" r="1.7"/><circle cx="39" cy="34" r="1.7"/></svg>',
     name: 'Motocross',
     short: 'Motocross',
     title: 'Grupo de Ofertas de Motocross, Peças e Acessórios | Radar de Ofertas',
     metaDesc:
       'Entre grátis no grupo de ofertas de Motocross: capacetes, equipamentos de proteção, peças e acessórios pra trilha com desconto, todo dia no seu celular.',
-    h1: 'Ofertas de Motocross, peças e acessórios',
-    sub: 'Capacetes, óculos, luvas, proteção, peças e acessórios pra trilha e motocross com os melhores preços. Entre grátis no grupo e receba as promoções todo dia — sem enrolação e sem spam.',
+    topic: 'Motocross, peças e acessórios',
+    sub: 'Capacetes, proteção, peças e acessórios pra trilha — as melhores promoções do dia, grátis no seu celular.',
     cta: 'Entrar no grupo de Motocross →',
     chips: [
       'Capacetes de motocross', 'Óculos e luvas', 'Coletes e protetores',
@@ -194,23 +194,44 @@ function extractTrackingHead() {
 
 const TRACKING_HEAD = extractTrackingHead();
 
+// Maior desconto entre os cards do nicho — vira o "Até X% OFF" do título, então
+// o número sempre bate com as ofertas mostradas logo abaixo.
+function maxDiscount(cardsHtml) {
+  const offs = [...cardsHtml.matchAll(/(\d+)% OFF/g)].map((m) => Number(m[1]));
+  return Math.max(...offs);
+}
+
+// Primeiro card do carrossel, em versão compacta pro hero: mostra na primeira
+// tela o tipo de oferta que a pessoa vai receber.
+function heroDeal(cardsHtml) {
+  const card = cardsHtml.match(/<article class="offer-card">([\s\S]*?)<\/article>/)[1];
+  const pick = (re) => (card.match(re) || [])[1] || '';
+  const img = pick(/<img src="([^"]+)"/);
+  const alt = pick(/alt="([^"]*)"/);
+  const badge = pick(/<span class="badge">([^<]+)<\/span>/);
+  const title = pick(/<h4>([^<]+)<\/h4>/);
+  const meta = pick(/<p class="offer-meta">([^<]+)<\/p>/);
+  const price = pick(/<p class="price">([\s\S]*?)<\/p>/);
+  return `<div class="hero-deal">
+        <span class="hero-deal-label">Exemplo de oferta que chega no grupo</span>
+        <div class="hero-deal-body">
+          <div class="hero-deal-thumb"><img src="${img}" alt="${alt}" width="72" height="72"><span class="badge">${badge}</span></div>
+          <div class="hero-deal-info">
+            <p class="hero-deal-title">${title}</p>
+            <p class="offer-meta">${meta}</p>
+            <p class="price">${price}</p>
+          </div>
+        </div>
+      </div>`;
+}
+
 // ---------------------------------------------------------------------
 // Template
 // ---------------------------------------------------------------------
-const LOGO_SVG = `<svg class="logo-mark" viewBox="0 0 32 32" width="28" height="28" aria-hidden="true">
-      <defs>
-        <linearGradient id="logoGrad" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stop-color="#22d3ee"/>
-          <stop offset="1" stop-color="#34d399"/>
-        </linearGradient>
-      </defs>
-      <circle cx="16" cy="16" r="14.5" fill="none" stroke="url(#logoGrad)" stroke-width="2" opacity=".35"/>
-      <circle cx="16" cy="16" r="9.5" fill="none" stroke="url(#logoGrad)" stroke-width="2" opacity=".65"/>
-      <circle cx="16" cy="16" r="4" fill="url(#logoGrad)"/>
-    </svg>`;
-
 function renderPage(n) {
   const { html: cards, count } = extractOfferCards(n.id);
+  const off = maxDiscount(cards);
+  const deal = heroDeal(cards);
   const url = `${SITE_URL}/${n.id}`;
   const chips = n.chips.map((c) => `<li class="chip">${c}</li>`).join('\n        ');
   const otherLinks = NICHES.filter((o) => o.id !== n.id)
@@ -242,8 +263,8 @@ function renderPage(n) {
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/styles.css?v=8">
-<link rel="stylesheet" href="/niche.css?v=1">
+<link rel="stylesheet" href="/styles.css?v=10">
+<link rel="stylesheet" href="/niche.css?v=4">
 
 <!-- Diz pro script.js qual é o nicho desta página: os pop-ups de "entrou no
      grupo" e o contador de vagas passam a falar só dele. -->
@@ -253,18 +274,8 @@ ${TRACKING_HEAD}
 </head>
 <body>
 
-<header class="site-header">
-  <a href="/" class="logo" aria-label="Radar de Ofertas — página inicial">
-    ${LOGO_SVG}
-    <span>Radar</span> de Ofertas
-  </a>
-  <nav class="quick-nav">
-    <a href="#ofertas">Ofertas</a>
-    <a href="#como-funciona">Como funciona</a>
-    <a href="#faq">Dúvidas</a>
-    <a href="/" class="nav-hub">Todos os grupos →</a>
-  </nav>
-</header>
+<!-- Sem header de propósito: página de captura de anúncio, sem links que tirem
+     a pessoa do caminho até o botão de entrar no grupo. -->
 
 <!-- O id da <main> é o mesmo do nicho: é por ele que o script.js liga todos os
      botões "Entrar no grupo" desta página ao link certo (variável de ambiente)
@@ -279,18 +290,20 @@ ${TRACKING_HEAD}
         <span class="category-icon">${n.icon}</span>
         <p class="eyebrow">${n.name}</p>
       </div>
-      <h1>${n.h1} <span class="hl">direto no seu ${channel}</span></h1>
+      <h1>Até ${off}% OFF em <span class="hl">${n.topic}</span></h1>
       <p class="hero-sub">${n.sub}</p>
 
       <div class="niche-cta-wrap">
+        <p class="free-badge"><span aria-hidden="true">✓</span> 100% GRÁTIS</p>
         <!-- TODO: o href é preenchido pelo script.js a partir do config.js (env var do Portainer) -->
-        <a href="#" class="cta-button niche-cta">${n.cta}</a>
+        <a href="#" class="cta-button niche-cta">ENTRAR NO GRUPO</a>
         <p class="vagas-counter" data-category="${n.id}">⚡ Restam <strong class="vagas-num">--</strong> vagas hoje</p>
-        <p class="niche-microcopy">Sem cadastro • Entre e saia quando quiser</p>
       </div>
 
+      ${deal}
+
       <div class="hero-stats">
-        <div><strong>100%</strong><span>grátis, sempre</span></div>
+        <div><strong>1 toque</strong><span>pra entrar</span></div>
         <div><strong>Todo dia</strong><span>ofertas novas</span></div>
         <div><strong>Sem spam</strong><span>só oferta boa</span></div>
       </div>
@@ -371,7 +384,7 @@ ${cards}
       </div>
       <div class="faq-item">
         <h4>Vou receber spam?</h4>
-        <p>Não. Só ofertas selecionadas de ${n.name} — sem corrente, sem mensagem de terceiros.</p>
+        <p>Não. Só ofertas selecionadas de ${n.name} — sem corrente, sem mensagem de terceiros. E dá pra silenciar o grupo quando quiser.</p>
       </div>
       <div class="faq-item">
         <h4>Que tipo de oferta eu recebo?</h4>
@@ -392,11 +405,23 @@ ${cards}
     </div>
   </section>
 
+  <!-- Botão fixo no rodapé (só celular): o niche.js mostra quando o botão do
+       hero sai da tela. Fica dentro da <main> pra o script.js ligar o link. -->
+  <div class="sticky-cta" aria-hidden="true">
+    <a href="#" class="cta-button niche-cta" tabindex="-1">ENTRAR NO GRUPO</a>
+  </div>
+
 </main>
 
 <footer class="site-footer">
   <div class="footer-logo">
     <svg width="22" height="22" viewBox="0 0 32 32" aria-hidden="true">
+      <defs>
+        <linearGradient id="logoGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#22d3ee"/>
+          <stop offset="1" stop-color="#34d399"/>
+        </linearGradient>
+      </defs>
       <circle cx="16" cy="16" r="14.5" fill="none" stroke="url(#logoGrad)" stroke-width="2" opacity=".35"/>
       <circle cx="16" cy="16" r="9.5" fill="none" stroke="url(#logoGrad)" stroke-width="2" opacity=".65"/>
       <circle cx="16" cy="16" r="4" fill="url(#logoGrad)"/>
@@ -414,8 +439,8 @@ ${cards}
 <!-- Pop-ups de "fulano entrou no grupo agora" -->
 <div id="toast-root" class="toast-root" aria-live="polite" aria-atomic="true"></div>
 
-<script src="/script.js?v=10"></script>
-<script src="/niche.js?v=2"></script>
+<script src="/script.js?v=12"></script>
+<script src="/niche.js?v=3"></script>
 </body>
 </html>
 `;

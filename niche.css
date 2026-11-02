@@ -1,16 +1,14 @@
 /* =====================================================
    RADAR DE OFERTAS — páginas de nicho (/casa, /informatica,
-   /games, /impressao-3d)
+   /games, /impressao-3d, /achadinhos, /motocross)
 
    Complementa o styles.css (que continua sendo o do site principal,
    sem nenhuma alteração). A cor de destaque de cada página vem do
    [data-accent] do <main>: --accent-color / --accent-dark / --accent-soft.
    ===================================================== */
 
-main [id]{ scroll-margin-top: 76px; }
-
-.quick-nav .nav-hub{ color: var(--cyan); }
-.quick-nav .nav-hub:hover{ color: var(--text); }
+/* sem header fixo nestas páginas: só um respiro ao rolar até uma seção */
+main [id]{ scroll-margin-top: 16px; }
 
 .text-link{
   color: var(--accent-color, var(--cyan));
@@ -79,10 +77,98 @@ main [id]{ scroll-margin-top: 76px; }
   border-radius: 14px;
 }
 
-.niche-microcopy{
-  margin-top: .8rem;
+/* "100% GRÁTIS" logo acima do botão do hero: a principal objeção de quem
+   chega pelo anúncio ("vai me cobrar alguma coisa?") respondida antes do clique */
+.free-badge{
+  display: flex;
+  align-items: center;
+  gap: .45rem;
+  width: fit-content;
+  margin: 0 auto 1rem;
+  padding: .45rem 1.1rem;
+  border-radius: 999px;
+  border: 1px solid var(--accent-color);
+  background: var(--accent-soft);
+  color: var(--accent-color);
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: .08em;
+}
+.free-badge span{ font-size: 1.1em; }
+
+/* logo do app (WhatsApp/Telegram) dentro do botão — inserido pelo niche.js */
+.niche-cta{ display: inline-flex; align-items: center; justify-content: center; gap: .55rem; }
+.cta-ico{ display: inline-flex; }
+.cta-ico svg{ width: 1.35em; height: 1.35em; }
+
+/* oferta de exemplo no hero */
+.hero-deal{
+  max-width: 400px;
+  margin: 1.8rem auto 0;
+  padding: .8rem;
+  border-radius: 16px;
+  border: 1px solid var(--card-border);
+  background: var(--card);
+  box-shadow: var(--shadow-soft);
+  text-align: left;
+}
+.hero-deal-label{
+  display: block;
+  margin-bottom: .6rem;
   color: var(--text-faint);
-  font-size: .82rem;
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+.hero-deal-body{ display: flex; align-items: center; gap: .9rem; }
+.hero-deal-thumb{
+  position: relative;
+  flex-shrink: 0;
+  width: 72px;
+  height: 72px;
+  border-radius: 12px;
+  background: #fff;
+  overflow: hidden;
+}
+.hero-deal-thumb img{ width: 100%; height: 100%; object-fit: contain; }
+.hero-deal-thumb .badge{
+  position: absolute;
+  left: 50%;
+  bottom: 4px;
+  transform: translateX(-50%);
+  padding: .15rem .4rem;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--accent-color), var(--accent-dark));
+  color: #0b0e12;
+  font-size: .6rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+.hero-deal-title{ font-weight: 700; font-size: .92rem; line-height: 1.25; }
+.hero-deal .offer-meta{ margin: .15rem 0 .25rem; }
+.hero-deal .price{ margin: 0; }
+
+/* botão fixo no rodapé — só no celular, e só quando o botão do hero já saiu da tela */
+.sticky-cta{ display: none; }
+@media (max-width: 760px){
+  .sticky-cta{
+    display: block;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 900;
+    padding: .7rem .8rem calc(.7rem + env(safe-area-inset-bottom));
+    background: linear-gradient(to top, rgba(9,12,16,.97) 70%, rgba(9,12,16,0));
+    transform: translateY(110%);
+    visibility: hidden;
+    transition: transform .25s ease, visibility .25s;
+  }
+  .sticky-cta .cta-button.niche-cta{ display: flex; width: 100%; }
+  body.sticky-on .sticky-cta{ transform: none; visibility: visible; }
+  /* pop-ups de "entrou no grupo" sobem pra não ficar atrás do botão */
+  body.sticky-on .toast-root{ bottom: 5.4rem; }
 }
 
 .niche-hero .hero-stats{ margin: 2.4rem 0 0; }
@@ -91,7 +177,7 @@ main [id]{ scroll-margin-top: 76px; }
    os 3 números do hero cabendo numa linha só */
 @media (max-width: 520px){
   .cta-button.niche-cta{
-    display: block;
+    display: flex;
     width: 100%;
     padding: 1rem .8rem;
     font-size: 1rem;

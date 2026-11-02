@@ -22,8 +22,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/styles.css?v=8">
-<link rel="stylesheet" href="/niche.css?v=1">
+<link rel="stylesheet" href="/styles.css?v=10">
+<link rel="stylesheet" href="/niche.css?v=4">
 
 <!-- Diz pro script.js qual é o nicho desta página: os pop-ups de "entrou no
      grupo" e o contador de vagas passam a falar só dele. -->
@@ -74,28 +74,8 @@
 </head>
 <body>
 
-<header class="site-header">
-  <a href="/" class="logo" aria-label="Radar de Ofertas — página inicial">
-    <svg class="logo-mark" viewBox="0 0 32 32" width="28" height="28" aria-hidden="true">
-      <defs>
-        <linearGradient id="logoGrad" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stop-color="#22d3ee"/>
-          <stop offset="1" stop-color="#34d399"/>
-        </linearGradient>
-      </defs>
-      <circle cx="16" cy="16" r="14.5" fill="none" stroke="url(#logoGrad)" stroke-width="2" opacity=".35"/>
-      <circle cx="16" cy="16" r="9.5" fill="none" stroke="url(#logoGrad)" stroke-width="2" opacity=".65"/>
-      <circle cx="16" cy="16" r="4" fill="url(#logoGrad)"/>
-    </svg>
-    <span>Radar</span> de Ofertas
-  </a>
-  <nav class="quick-nav">
-    <a href="#ofertas">Ofertas</a>
-    <a href="#como-funciona">Como funciona</a>
-    <a href="#faq">Dúvidas</a>
-    <a href="/" class="nav-hub">Todos os grupos →</a>
-  </nav>
-</header>
+<!-- Sem header de propósito: página de captura de anúncio, sem links que tirem
+     a pessoa do caminho até o botão de entrar no grupo. -->
 
 <!-- O id da <main> é o mesmo do nicho: é por ele que o script.js liga todos os
      botões "Entrar no grupo" desta página ao link certo (variável de ambiente)
@@ -110,18 +90,30 @@
         <span class="category-icon">🏠</span>
         <p class="eyebrow">Casa &amp; Eletrodomésticos</p>
       </div>
-      <h1>Ofertas de Casa e Eletrodomésticos <span class="hl">direto no seu <span data-channel>WhatsApp</span></span></h1>
-      <p class="hero-sub">Air fryer, Smart TV, aspirador robô, cafeteira e muito mais. Entre grátis no grupo e receba as melhores promoções todo dia — sem enrolação e sem spam.</p>
+      <h1>Até 70% OFF em <span class="hl">Casa e Eletrodomésticos</span></h1>
+      <p class="hero-sub">Air fryer, Smart TV, aspirador robô e muito mais — as melhores promoções do dia, grátis no seu celular.</p>
 
       <div class="niche-cta-wrap">
+        <p class="free-badge"><span aria-hidden="true">✓</span> 100% GRÁTIS</p>
         <!-- TODO: o href é preenchido pelo script.js a partir do config.js (env var do Portainer) -->
-        <a href="#" class="cta-button niche-cta">Entrar no grupo de Casa &amp; Eletro →</a>
+        <a href="#" class="cta-button niche-cta">ENTRAR NO GRUPO</a>
         <p class="vagas-counter" data-category="casa">⚡ Restam <strong class="vagas-num">--</strong> vagas hoje</p>
-        <p class="niche-microcopy">Sem cadastro • Entre e saia quando quiser</p>
+      </div>
+
+      <div class="hero-deal">
+        <span class="hero-deal-label">Exemplo de oferta que chega no grupo</span>
+        <div class="hero-deal-body">
+          <div class="hero-deal-thumb"><img src="/assets/products/smart-tv.jpg" alt="Smart TV 55 polegadas 4K" width="72" height="72"><span class="badge">56% OFF</span></div>
+          <div class="hero-deal-info">
+            <p class="hero-deal-title">Smart TV 55" 4K Crystal UHD</p>
+            <p class="offer-meta">Mercado Livre · há 18 min</p>
+            <p class="price"><s>R$ 2.379,30</s> <strong>R$ 1.049,30</strong></p>
+          </div>
+        </div>
       </div>
 
       <div class="hero-stats">
-        <div><strong>100%</strong><span>grátis, sempre</span></div>
+        <div><strong>1 toque</strong><span>pra entrar</span></div>
         <div><strong>Todo dia</strong><span>ofertas novas</span></div>
         <div><strong>Sem spam</strong><span>só oferta boa</span></div>
       </div>
@@ -257,7 +249,7 @@
       </div>
       <div class="faq-item">
         <h4>Vou receber spam?</h4>
-        <p>Não. Só ofertas selecionadas de Casa &amp; Eletrodomésticos — sem corrente, sem mensagem de terceiros.</p>
+        <p>Não. Só ofertas selecionadas de Casa &amp; Eletrodomésticos — sem corrente, sem mensagem de terceiros. E dá pra silenciar o grupo quando quiser.</p>
       </div>
       <div class="faq-item">
         <h4>Que tipo de oferta eu recebo?</h4>
@@ -278,11 +270,23 @@
     </div>
   </section>
 
+  <!-- Botão fixo no rodapé (só celular): o niche.js mostra quando o botão do
+       hero sai da tela. Fica dentro da <main> pra o script.js ligar o link. -->
+  <div class="sticky-cta" aria-hidden="true">
+    <a href="#" class="cta-button niche-cta" tabindex="-1">ENTRAR NO GRUPO</a>
+  </div>
+
 </main>
 
 <footer class="site-footer">
   <div class="footer-logo">
     <svg width="22" height="22" viewBox="0 0 32 32" aria-hidden="true">
+      <defs>
+        <linearGradient id="logoGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#22d3ee"/>
+          <stop offset="1" stop-color="#34d399"/>
+        </linearGradient>
+      </defs>
       <circle cx="16" cy="16" r="14.5" fill="none" stroke="url(#logoGrad)" stroke-width="2" opacity=".35"/>
       <circle cx="16" cy="16" r="9.5" fill="none" stroke="url(#logoGrad)" stroke-width="2" opacity=".65"/>
       <circle cx="16" cy="16" r="4" fill="url(#logoGrad)"/>
@@ -304,7 +308,7 @@
 <!-- Pop-ups de "fulano entrou no grupo agora" -->
 <div id="toast-root" class="toast-root" aria-live="polite" aria-atomic="true"></div>
 
-<script src="/script.js?v=10"></script>
-<script src="/niche.js?v=2"></script>
+<script src="/script.js?v=12"></script>
+<script src="/niche.js?v=3"></script>
 </body>
 </html>

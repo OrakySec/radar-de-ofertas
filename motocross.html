@@ -22,8 +22,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/styles.css?v=8">
-<link rel="stylesheet" href="/niche.css?v=1">
+<link rel="stylesheet" href="/styles.css?v=10">
+<link rel="stylesheet" href="/niche.css?v=4">
 
 <!-- Diz pro script.js qual é o nicho desta página: os pop-ups de "entrou no
      grupo" e o contador de vagas passam a falar só dele. -->
@@ -74,28 +74,8 @@
 </head>
 <body>
 
-<header class="site-header">
-  <a href="/" class="logo" aria-label="Radar de Ofertas — página inicial">
-    <svg class="logo-mark" viewBox="0 0 32 32" width="28" height="28" aria-hidden="true">
-      <defs>
-        <linearGradient id="logoGrad" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stop-color="#22d3ee"/>
-          <stop offset="1" stop-color="#34d399"/>
-        </linearGradient>
-      </defs>
-      <circle cx="16" cy="16" r="14.5" fill="none" stroke="url(#logoGrad)" stroke-width="2" opacity=".35"/>
-      <circle cx="16" cy="16" r="9.5" fill="none" stroke="url(#logoGrad)" stroke-width="2" opacity=".65"/>
-      <circle cx="16" cy="16" r="4" fill="url(#logoGrad)"/>
-    </svg>
-    <span>Radar</span> de Ofertas
-  </a>
-  <nav class="quick-nav">
-    <a href="#ofertas">Ofertas</a>
-    <a href="#como-funciona">Como funciona</a>
-    <a href="#faq">Dúvidas</a>
-    <a href="/" class="nav-hub">Todos os grupos →</a>
-  </nav>
-</header>
+<!-- Sem header de propósito: página de captura de anúncio, sem links que tirem
+     a pessoa do caminho até o botão de entrar no grupo. -->
 
 <!-- O id da <main> é o mesmo do nicho: é por ele que o script.js liga todos os
      botões "Entrar no grupo" desta página ao link certo (variável de ambiente)
@@ -107,21 +87,33 @@
     <div class="niche-glow" aria-hidden="true"></div>
     <div class="niche-hero-inner">
       <div class="category-kicker">
-        <span class="category-icon">🏍️</span>
+        <span class="category-icon"><svg class="moto-svg" viewBox="0 0 48 48" fill="currentColor" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="34" r="7.2" stroke-width="2.4"/><circle cx="39" cy="34" r="7.2" stroke-width="2.4"/><path d="M39 34 L34 13" stroke-width="2.4"/><path d="M30.5 11.5 L37.5 12.5" stroke-width="2.8"/><path d="M32.5 26.5 Q40 21 46 27.5" stroke-width="2.2"/><path d="M9 34 L20 31.5" stroke-width="2.4"/></g><path d="M2.5 19.5 L18 23.5 L24.5 21 L30 17 L33 19.5 L28 26 L19 27 L8 24.5 Z"/><path d="M17.5 28.5 L27 28.5 L28.5 34.5 L19 36 Z"/><circle cx="9" cy="34" r="1.7"/><circle cx="39" cy="34" r="1.7"/></svg></span>
         <p class="eyebrow">Motocross</p>
       </div>
-      <h1>Ofertas de Motocross, peças e acessórios <span class="hl">direto no seu <span data-channel>WhatsApp</span></span></h1>
-      <p class="hero-sub">Capacetes, óculos, luvas, proteção, peças e acessórios pra trilha e motocross com os melhores preços. Entre grátis no grupo e receba as promoções todo dia — sem enrolação e sem spam.</p>
+      <h1>Até 60% OFF em <span class="hl">Motocross, peças e acessórios</span></h1>
+      <p class="hero-sub">Capacetes, proteção, peças e acessórios pra trilha — as melhores promoções do dia, grátis no seu celular.</p>
 
       <div class="niche-cta-wrap">
+        <p class="free-badge"><span aria-hidden="true">✓</span> 100% GRÁTIS</p>
         <!-- TODO: o href é preenchido pelo script.js a partir do config.js (env var do Portainer) -->
-        <a href="#" class="cta-button niche-cta">Entrar no grupo de Motocross →</a>
+        <a href="#" class="cta-button niche-cta">ENTRAR NO GRUPO</a>
         <p class="vagas-counter" data-category="motocross">⚡ Restam <strong class="vagas-num">--</strong> vagas hoje</p>
-        <p class="niche-microcopy">Sem cadastro • Entre e saia quando quiser</p>
+      </div>
+
+      <div class="hero-deal">
+        <span class="hero-deal-label">Exemplo de oferta que chega no grupo</span>
+        <div class="hero-deal-body">
+          <div class="hero-deal-thumb"><img src="/assets/products/escape-powercore-4.jpg" alt="Escapamento completo Pro Tork Powercore 4 Big Bore Black Edition para CRF 250F" width="72" height="72"><span class="badge">50% OFF</span></div>
+          <div class="hero-deal-info">
+            <p class="hero-deal-title">Escape Pro Tork Powercore 4 Big Bore Black Edition — CRF 250F</p>
+            <p class="offer-meta">Mercado Livre · há 12 min</p>
+            <p class="price"><s>R$ 1.799,90</s> <strong>R$ 899,90</strong></p>
+          </div>
+        </div>
       </div>
 
       <div class="hero-stats">
-        <div><strong>100%</strong><span>grátis, sempre</span></div>
+        <div><strong>1 toque</strong><span>pra entrar</span></div>
         <div><strong>Todo dia</strong><span>ofertas novas</span></div>
         <div><strong>Sem spam</strong><span>só oferta boa</span></div>
       </div>
@@ -143,52 +135,52 @@
       </div>
       <div class="carousel">
         <article class="offer-card">
-          <div class="offer-thumb"><img src="/assets/products/capacete-motocross.jpg" alt="Capacete motocross Pro Tork Fast 788 preto e verde" loading="lazy"><span class="badge">43% OFF</span></div>
-          <h4>Capacete Motocross Pro Tork Fast 788</h4>
-          <p class="offer-meta">Amazon · há 20 min</p>
-          <p class="price"><s>R$ 349,90</s> <strong>R$ 199,90</strong></p>
+          <div class="offer-thumb"><img src="/assets/products/escape-powercore-4.jpg" alt="Escapamento completo Pro Tork Powercore 4 Big Bore Black Edition para CRF 250F" loading="lazy"><span class="badge">50% OFF</span></div>
+          <h4>Escape Pro Tork Powercore 4 Big Bore Black Edition — CRF 250F</h4>
+          <p class="offer-meta">Mercado Livre · há 12 min</p>
+          <p class="price"><s>R$ 1.799,90</s> <strong>R$ 899,90</strong></p>
           <a href="#" class="offer-cta">Entrar no grupo</a>
         </article>
         <article class="offer-card">
-          <div class="offer-thumb"><img src="/assets/products/oculos-motocross.jpg" alt="Óculos de motocross Pro Tork 788 branco" loading="lazy"><span class="badge">56% OFF</span></div>
+          <div class="offer-thumb"><img src="/assets/products/capacete-liberty-mx.jpg" alt="Capacete motocross Pro Tork Liberty MX Pro preto e amarelo" loading="lazy"><span class="badge">53% OFF</span></div>
+          <h4>Capacete Motocross Pro Tork Liberty MX Pro</h4>
+          <p class="offer-meta">Amazon · há 30 min</p>
+          <p class="price"><s>R$ 149,90</s> <strong>R$ 69,90</strong></p>
+          <a href="#" class="offer-cta">Entrar no grupo</a>
+        </article>
+        <article class="offer-card">
+          <div class="offer-thumb"><img src="/assets/products/conjunto-ims-mx.jpg" alt="Conjunto de roupa motocross IMS MX Racing calça e camisa" loading="lazy"><span class="badge">53% OFF</span></div>
+          <h4>Conjunto IMS MX Racing 2026 (Calça + Camisa)</h4>
+          <p class="offer-meta">Shopee · há 45 min</p>
+          <p class="price"><s>R$ 399,90</s> <strong>R$ 189,90</strong></p>
+          <a href="#" class="offer-cta">Entrar no grupo</a>
+        </article>
+        <article class="offer-card">
+          <div class="offer-thumb"><img src="/assets/products/bota-jett-trail.jpg" alt="Bota motocross Pro Tork Jett Trail preta e vermelha" loading="lazy"><span class="badge">58% OFF</span></div>
+          <h4>Bota Motocross Pro Tork Jett Trail</h4>
+          <p class="offer-meta">Mercado Livre · há 1h</p>
+          <p class="price"><s>R$ 599,90</s> <strong>R$ 249,90</strong></p>
+          <a href="#" class="offer-cta">Entrar no grupo</a>
+        </article>
+        <article class="offer-card">
+          <div class="offer-thumb"><img src="/assets/products/luva-x11-fit.jpg" alt="Luva X11 Fit X preta para motocross e trilha" loading="lazy"><span class="badge">50% OFF</span></div>
+          <h4>Luva X11 Fit X Motocross e Trilha</h4>
+          <p class="offer-meta">Amazon · há 1h20</p>
+          <p class="price"><s>R$ 79,90</s> <strong>R$ 39,90</strong></p>
+          <a href="#" class="offer-cta">Entrar no grupo</a>
+        </article>
+        <article class="offer-card">
+          <div class="offer-thumb"><img src="/assets/products/kit-plastico-crf230.jpg" alt="Kit plástico 4ction para Honda CRF 230 cinza e branco" loading="lazy"><span class="badge">56% OFF</span></div>
+          <h4>Kit Plástico 4ction CRF 230</h4>
+          <p class="offer-meta">Shopee · há 2h</p>
+          <p class="price"><s>R$ 449,90</s> <strong>R$ 199,90</strong></p>
+          <a href="#" class="offer-cta">Entrar no grupo</a>
+        </article>
+        <article class="offer-card">
+          <div class="offer-thumb"><img src="/assets/products/oculos-motocross.jpg" alt="Óculos de motocross Pro Tork 788 branco" loading="lazy"><span class="badge">60% OFF</span></div>
           <h4>Óculos de Motocross Pro Tork 788</h4>
-          <p class="offer-meta">Mercado Livre · há 35 min</p>
-          <p class="price"><s>R$ 89,90</s> <strong>R$ 39,90</strong></p>
-          <a href="#" class="offer-cta">Entrar no grupo</a>
-        </article>
-        <article class="offer-card">
-          <div class="offer-thumb"><img src="/assets/products/luva-motocross.jpg" alt="Luvas de proteção para motocross e trilha" loading="lazy"><span class="badge">56% OFF</span></div>
-          <h4>Luvas de Proteção Motocross e Trilha</h4>
-          <p class="offer-meta">Shopee · há 1h</p>
-          <p class="price"><s>R$ 79,90</s> <strong>R$ 34,90</strong></p>
-          <a href="#" class="offer-cta">Entrar no grupo</a>
-        </article>
-        <article class="offer-card">
-          <div class="offer-thumb"><img src="/assets/products/kit-protetor-articulado.jpg" alt="Kit de joelheira e cotoveleira articulada para moto" loading="lazy"><span class="badge">54% OFF</span></div>
-          <h4>Kit Joelheira e Cotoveleira Articulada</h4>
-          <p class="offer-meta">Shopee · há 50 min</p>
-          <p class="price"><s>R$ 129,90</s> <strong>R$ 59,90</strong></p>
-          <a href="#" class="offer-cta">Entrar no grupo</a>
-        </article>
-        <article class="offer-card">
-          <div class="offer-thumb"><img src="/assets/products/colete-motocross.jpg" alt="Colete protetor de peito motocross ASW Maxx Lite" loading="lazy"><span class="badge">43% OFF</span></div>
-          <h4>Colete Protetor Motocross ASW Maxx Lite</h4>
-          <p class="offer-meta">Amazon · há 2h</p>
-          <p class="price"><s>R$ 399,90</s> <strong>R$ 229,90</strong></p>
-          <a href="#" class="offer-cta">Entrar no grupo</a>
-        </article>
-        <article class="offer-card">
-          <div class="offer-thumb"><img src="/assets/products/protetor-de-mao.jpg" alt="Protetor de mão em alumínio HPS para moto de trilha" loading="lazy"><span class="badge">46% OFF</span></div>
-          <h4>Protetor de Mão Alumínio HPS para Trilha</h4>
-          <p class="offer-meta">Mercado Livre · há 1h30</p>
-          <p class="price"><s>R$ 349,90</s> <strong>R$ 189,90</strong></p>
-          <a href="#" class="offer-cta">Entrar no grupo</a>
-        </article>
-        <article class="offer-card">
-          <div class="offer-thumb"><img src="/assets/products/kit-relacao-crosser.jpg" alt="Kit relação transmissão Riffel Titanium para XTZ Crosser" loading="lazy"><span class="badge">44% OFF</span></div>
-          <h4>Kit Relação Riffel Titanium XTZ Crosser</h4>
-          <p class="offer-meta">Amazon · há 3h</p>
-          <p class="price"><s>R$ 179,90</s> <strong>R$ 99,90</strong></p>
+          <p class="offer-meta">Mercado Livre · há 3h</p>
+          <p class="price"><s>R$ 69,90</s> <strong>R$ 27,90</strong></p>
           <a href="#" class="offer-cta">Entrar no grupo</a>
         </article>
       </div>
@@ -257,7 +249,7 @@
       </div>
       <div class="faq-item">
         <h4>Vou receber spam?</h4>
-        <p>Não. Só ofertas selecionadas de Motocross — sem corrente, sem mensagem de terceiros.</p>
+        <p>Não. Só ofertas selecionadas de Motocross — sem corrente, sem mensagem de terceiros. E dá pra silenciar o grupo quando quiser.</p>
       </div>
       <div class="faq-item">
         <h4>Que tipo de oferta eu recebo?</h4>
@@ -278,11 +270,23 @@
     </div>
   </section>
 
+  <!-- Botão fixo no rodapé (só celular): o niche.js mostra quando o botão do
+       hero sai da tela. Fica dentro da <main> pra o script.js ligar o link. -->
+  <div class="sticky-cta" aria-hidden="true">
+    <a href="#" class="cta-button niche-cta" tabindex="-1">ENTRAR NO GRUPO</a>
+  </div>
+
 </main>
 
 <footer class="site-footer">
   <div class="footer-logo">
     <svg width="22" height="22" viewBox="0 0 32 32" aria-hidden="true">
+      <defs>
+        <linearGradient id="logoGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#22d3ee"/>
+          <stop offset="1" stop-color="#34d399"/>
+        </linearGradient>
+      </defs>
       <circle cx="16" cy="16" r="14.5" fill="none" stroke="url(#logoGrad)" stroke-width="2" opacity=".35"/>
       <circle cx="16" cy="16" r="9.5" fill="none" stroke="url(#logoGrad)" stroke-width="2" opacity=".65"/>
       <circle cx="16" cy="16" r="4" fill="url(#logoGrad)"/>
@@ -304,7 +308,7 @@
 <!-- Pop-ups de "fulano entrou no grupo agora" -->
 <div id="toast-root" class="toast-root" aria-live="polite" aria-atomic="true"></div>
 
-<script src="/script.js?v=10"></script>
-<script src="/niche.js?v=2"></script>
+<script src="/script.js?v=12"></script>
+<script src="/niche.js?v=3"></script>
 </body>
 </html>
