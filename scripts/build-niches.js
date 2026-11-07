@@ -10,7 +10,8 @@
  *
  * O que é REAPROVEITADO do index.html (pra nunca ficar fora de sincronia
  * com o site principal):
- *   - os 7 cards de oferta de cada categoria
+ *   - os cards de oferta de cada categoria (só pra calcular o "Até X% OFF"
+ *     do título — as páginas de nicho não mostram as ofertas)
  *   - o bloco de tracking do <head> (config.js + Meta Pixel + Google Ads)
  *
  * Uso (sem dependências, só Node):
@@ -194,44 +195,19 @@ function extractTrackingHead() {
 
 const TRACKING_HEAD = extractTrackingHead();
 
-// Maior desconto entre os cards do nicho — vira o "Até X% OFF" do título, então
-// o número sempre bate com as ofertas mostradas logo abaixo.
+// Maior desconto entre os cards do nicho no site principal — vira o "Até X% OFF"
+// do título, então o número sempre bate com as ofertas do site.
 function maxDiscount(cardsHtml) {
   const offs = [...cardsHtml.matchAll(/(\d+)% OFF/g)].map((m) => Number(m[1]));
   return Math.max(...offs);
-}
-
-// Primeiro card do carrossel, em versão compacta pro hero: mostra na primeira
-// tela o tipo de oferta que a pessoa vai receber.
-function heroDeal(cardsHtml) {
-  const card = cardsHtml.match(/<article class="offer-card">([\s\S]*?)<\/article>/)[1];
-  const pick = (re) => (card.match(re) || [])[1] || '';
-  const img = pick(/<img src="([^"]+)"/);
-  const alt = pick(/alt="([^"]*)"/);
-  const badge = pick(/<span class="badge">([^<]+)<\/span>/);
-  const title = pick(/<h4>([^<]+)<\/h4>/);
-  const meta = pick(/<p class="offer-meta">([^<]+)<\/p>/);
-  const price = pick(/<p class="price">([\s\S]*?)<\/p>/);
-  return `<div class="hero-deal">
-        <span class="hero-deal-label">Exemplo de oferta que chega no grupo</span>
-        <div class="hero-deal-body">
-          <div class="hero-deal-thumb"><img src="${img}" alt="${alt}" width="72" height="72"><span class="badge">${badge}</span></div>
-          <div class="hero-deal-info">
-            <p class="hero-deal-title">${title}</p>
-            <p class="offer-meta">${meta}</p>
-            <p class="price">${price}</p>
-          </div>
-        </div>
-      </div>`;
 }
 
 // ---------------------------------------------------------------------
 // Template
 // ---------------------------------------------------------------------
 function renderPage(n) {
-  const { html: cards, count } = extractOfferCards(n.id);
+  const { html: cards } = extractOfferCards(n.id);
   const off = maxDiscount(cards);
-  const deal = heroDeal(cards);
   const url = `${SITE_URL}/${n.id}`;
   const chips = n.chips.map((c) => `<li class="chip">${c}</li>`).join('\n        ');
   const otherLinks = NICHES.filter((o) => o.id !== n.id)
@@ -264,7 +240,7 @@ function renderPage(n) {
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/styles.css?v=10">
-<link rel="stylesheet" href="/niche.css?v=4">
+<link rel="stylesheet" href="/niche.css?v=5">
 
 <!-- Diz pro script.js qual é o nicho desta página: os pop-ups de "entrou no
      grupo" e o contador de vagas passam a falar só dele. -->
@@ -300,7 +276,6 @@ ${TRACKING_HEAD}
         <p class="vagas-counter" data-category="${n.id}">⚡ Restam <strong class="vagas-num">--</strong> vagas hoje</p>
       </div>
 
-      ${deal}
 
       <div class="hero-stats">
         <div><strong>1 toque</strong><span>pra entrar</span></div>
@@ -310,27 +285,8 @@ ${TRACKING_HEAD}
     </div>
   </section>
 
-  <!-- ===================== OFERTAS ===================== -->
-  <section id="ofertas" class="niche-section alt">
-    <div class="niche-section-head">
-      <h2>Ofertas como essas, todo dia no grupo</h2>
-      <p>Exemplos do tipo de promoção que você recebe. Entre no grupo pra ver as próximas assim que aparecerem.</p>
-    </div>
-
-    <div class="offers-wrap">
-      <div class="offers-head">
-        <h3>Ofertas recentes</h3>
-        <button class="carousel-btn prev" aria-label="Anterior">‹</button>
-        <button class="carousel-btn next" aria-label="Próximo">›</button>
-      </div>
-      <div class="carousel">
-${cards}
-      </div>
-    </div>
-  </section>
-
   <!-- ===================== O QUE TEM NO GRUPO ===================== -->
-  <section class="niche-section">
+  <section class="niche-section alt">
     <div class="niche-section-head">
       <h2>O que você encontra no grupo</h2>
     </div>
@@ -340,7 +296,7 @@ ${cards}
   </section>
 
   <!-- ===================== COMO FUNCIONA ===================== -->
-  <section id="como-funciona" class="niche-section alt">
+  <section id="como-funciona" class="niche-section">
     <div class="niche-section-head">
       <h2>Como funciona</h2>
       <p>Três passos, menos de um minuto.</p>

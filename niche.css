@@ -101,54 +101,6 @@ main [id]{ scroll-margin-top: 16px; }
 .cta-ico{ display: inline-flex; }
 .cta-ico svg{ width: 1.35em; height: 1.35em; }
 
-/* oferta de exemplo no hero */
-.hero-deal{
-  max-width: 400px;
-  margin: 1.8rem auto 0;
-  padding: .8rem;
-  border-radius: 16px;
-  border: 1px solid var(--card-border);
-  background: var(--card);
-  box-shadow: var(--shadow-soft);
-  text-align: left;
-}
-.hero-deal-label{
-  display: block;
-  margin-bottom: .6rem;
-  color: var(--text-faint);
-  font-size: .72rem;
-  font-weight: 700;
-  letter-spacing: .06em;
-  text-transform: uppercase;
-}
-.hero-deal-body{ display: flex; align-items: center; gap: .9rem; }
-.hero-deal-thumb{
-  position: relative;
-  flex-shrink: 0;
-  width: 72px;
-  height: 72px;
-  border-radius: 12px;
-  background: #fff;
-  overflow: hidden;
-}
-.hero-deal-thumb img{ width: 100%; height: 100%; object-fit: contain; }
-.hero-deal-thumb .badge{
-  position: absolute;
-  left: 50%;
-  bottom: 4px;
-  transform: translateX(-50%);
-  padding: .15rem .4rem;
-  border-radius: 999px;
-  background: linear-gradient(135deg, var(--accent-color), var(--accent-dark));
-  color: #0b0e12;
-  font-size: .6rem;
-  font-weight: 800;
-  white-space: nowrap;
-}
-.hero-deal-title{ font-weight: 700; font-size: .92rem; line-height: 1.25; }
-.hero-deal .offer-meta{ margin: .15rem 0 .25rem; }
-.hero-deal .price{ margin: 0; }
-
 /* botão fixo no rodapé — só no celular, e só quando o botão do hero já saiu da tela */
 .sticky-cta{ display: none; }
 @media (max-width: 760px){
@@ -212,20 +164,6 @@ main [id]{ scroll-margin-top: 16px; }
 .niche-section-head p{
   margin-top: .6rem;
   color: var(--text-dim);
-}
-
-.niche-section .offers-wrap{ margin: 0 auto; }
-
-/* barra de rolagem do carrossel no tema escuro (o padrão do navegador é branco) */
-.niche-section .carousel{
-  scrollbar-width: thin;
-  scrollbar-color: var(--card-border) transparent;
-}
-.niche-section .carousel::-webkit-scrollbar{ height: 8px; }
-.niche-section .carousel::-webkit-scrollbar-track{ background: transparent; }
-.niche-section .carousel::-webkit-scrollbar-thumb{
-  background: var(--card-border);
-  border-radius: 999px;
 }
 
 /* ---------- "o que tem no grupo" ---------- */
